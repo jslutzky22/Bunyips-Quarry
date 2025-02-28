@@ -23,9 +23,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool transitioning;
     [SerializeField] private float transitionOpacity; //is a number from 0-1
     [SerializeField] private float transitionLerp; //is a number from 0-1
+    [SerializeField] private float fishingBarProgress;
+    [SerializeField] private int fishCaught;
 
     void Start()
     {
+        fishCaught = 0;
+        fishingBarProgress = 0;
         TurnAround = PlayerControls.currentActionMap.FindAction("TurnAround");
         Left = PlayerControls.currentActionMap.FindAction("Left");
         Right = PlayerControls.currentActionMap.FindAction("Right");
@@ -110,6 +114,12 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        fishingBarProgress += 0.01f;
+        if (fishingBarProgress > 0.99f)
+        {
+            fishCaught++;
+        }
+
         if (transitionOpacity < 0)
         {
             transitionOpacity = 0;
