@@ -388,6 +388,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2DFishingPart
       objectReference: {fileID: 0}
+    - target: {fileID: 4294641177087724456, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9001869889184187747, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
