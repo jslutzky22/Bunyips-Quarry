@@ -392,6 +392,26 @@ PrefabInstance:
       propertyPath: m_UiScaleMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7934385581276206928, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934385581276206928, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 795122e8f9040fa4093e7731edab949a, type: 3}
+    - target: {fileID: 7934385581276206928, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934385581276206928, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934385581276206928, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9001869889184187747, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
