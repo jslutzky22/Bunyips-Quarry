@@ -107,7 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerControls: {fileID: 4527193075074046131}
-  fishingCanvas: {fileID: 998271351882936849, guid: 7e3f3ceada1108e469c20209c885ff4c, type: 3}
+  fishingCanvasBackground: {fileID: 4513222181885544654, guid: 4912290cbccf54e41896f917596ebdd9, type: 3}
+  transition: {fileID: 8115846597178807952, guid: 7b70f4d3df1b68c44998ac414cfe4ae3, type: 3}
+  transitionOpacity: 0
+  transitionDarkness: 0
 --- !u!114 &4527193075074046131
 MonoBehaviour:
   m_ObjectHideFlags: 0

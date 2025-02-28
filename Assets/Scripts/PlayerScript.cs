@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -15,7 +16,13 @@ public class PlayerScript : MonoBehaviour
     private InputAction RightClick;
 
     [Header("GameObjects")]
-    [SerializeField] private GameObject fishingCanvas;
+    [SerializeField] private GameObject fishingCanvasBackground;
+    [SerializeField] private GameObject transition;
+
+    [Header("Values")]
+    [SerializeField] private bool transitioning;
+    [SerializeField] private float transitionOpacity; //is a number from 0-1
+    [SerializeField] private float transitionLerp; //is a number from 0-1
 
     void Start()
     {
@@ -29,18 +36,95 @@ public class PlayerScript : MonoBehaviour
 
     void OnTurnAround()
     {
-        if (fishingCanvas.activeSelf == true)
+        Debug.Log("space pressed");
+        if (!transitioning)
         {
-            fishingCanvas.SetActive(false);
+            if (!fishingCanvasBackground.activeSelf)
+            {
+                StartCoroutine(TransitionToFishing());
+            }
+            else
+            {
+                StartCoroutine(TransitionFromFishing());
+            }
         }
-        if (fishingCanvas.activeSelf == false)
+    }
+
+    IEnumerator TransitionFromFishing()
+    {
+        transitioning = true;
+        transitionLerp = 0f;
+        transitionOpacity = 0f;
+        transition.SetActive(true);
+        while (transitionOpacity < 1)
         {
-            fishingCanvas.SetActive(true);
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity += 0.01f;
         }
+        while (transitionLerp < 1)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionLerp += 0.01f;
+        }
+        fishingCanvasBackground.SetActive(false);
+        while (transitionOpacity > 0)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity -= 0.01f;
+        }
+        transition.SetActive(false);
+        transitioning = false;
+    }
+
+    IEnumerator TransitionToFishing()
+    {
+        transitioning = true;
+        transitionLerp = 1f;
+        transitionOpacity = 0f;
+        transition.SetActive(true);
+        while (transitionOpacity < 1)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity += 0.01f;
+        }
+        while (transitionLerp > 0)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionLerp -= 0.01f;
+        }
+        fishingCanvasBackground.SetActive(true);
+        while (transitionOpacity > 0)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity -= 0.01f;
+        }
+        transition.SetActive(false);
+        transitioning = false;
     }
 
     void Update()
     {
-        
+        if (transitionOpacity < 0)
+        {
+            transitionOpacity = 0;
+        }
+        if (transitionOpacity > 1)
+        {
+            transitionOpacity = 1;
+        }
+        if (transitionLerp < 0)
+        {
+            transitionLerp = 0;
+        }
+        if (transitionLerp > 1)
+        {
+            transitionLerp = 1;
+        }
     }
 }
