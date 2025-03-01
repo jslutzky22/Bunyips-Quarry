@@ -385,7 +385,7 @@ public class PlayerScript : MonoBehaviour
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
         if (activeSceneIs2D)
         {
-            fishingBarProgress += 0.0001f;
+            fishingBarProgress += 0.00005f;
             if (fishingBarProgress >= 1f)
             {
                 fishCaught++;
