@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject minigameOneD;
     [SerializeField] private GameObject minigameTwoUI;
     [SerializeField] private Slider minigameTwoSlider;
-
+    [SerializeField] private TMP_Text fishCaughtText;
 
     [Header("Values")]
     [SerializeField] private bool minigameOneUIWasActive;
@@ -166,7 +167,7 @@ public class PlayerScript : MonoBehaviour
         minigameOneD.SetActive(false);
         if (minigameOneProgress >= 20)
         {
-            fishingBarProgress += 0.30f;
+            fishingBarProgress += 0.15f;
         }
         StartCoroutine(Minigames());
     }
@@ -271,7 +272,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (minigameTwoWon)
         {
-            fishingBarProgress += 0.30f;
+            fishingBarProgress += 0.15f;
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
@@ -396,6 +397,8 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
+
+        fishCaughtText.text = "Fish Caught: " + fishCaught;
 
         if (transitionOpacity < 0)
         {
