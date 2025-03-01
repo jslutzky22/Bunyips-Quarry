@@ -292,12 +292,14 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.01f);
             transitionOpacity += 0.01f;
         }
+        transitionOpacity = 1f;
         while (transitionLerp < 1)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
             transitionLerp += 0.01f;
         }
+        transitionLerp = 1f;
         fishingCanvasBackground.SetActive(false);
         fishingBar.gameObject.SetActive(false);
         if (!(!minigameOneUI.activeSelf))
@@ -326,6 +328,7 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.01f);
             transitionOpacity -= 0.01f;
         }
+        transitionOpacity = 0f;
         transition.SetActive(false);
         transitioning = false;
     }
@@ -342,12 +345,14 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.01f);
             transitionOpacity += 0.01f;
         }
+        transitionOpacity = 1f;
         while (transitionLerp > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
             transitionLerp -= 0.01f;
         }
+        transitionLerp = 0f;
         fishingCanvasBackground.SetActive(true);
         fishingBar.gameObject.SetActive(true);
         if (minigameOneUIWasActive)
@@ -376,6 +381,7 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.01f);
             transitionOpacity -= 0.01f;
         }
+        transitionOpacity = 0f;
         transition.SetActive(false);
         activeSceneIs2D = true;
         transitioning = false;
