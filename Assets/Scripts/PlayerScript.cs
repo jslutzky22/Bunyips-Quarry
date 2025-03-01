@@ -380,7 +380,7 @@ public class PlayerScript : MonoBehaviour
         transitioning = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
         if (activeSceneIs2D)
