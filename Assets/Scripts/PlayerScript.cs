@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float transitionOpacity; //is a number from 0-1
     [SerializeField] private float transitionLerp; //is a number from 0-1
     [SerializeField] private float fishingBarProgress;
-    [SerializeField] private int fishCaught;
+    [SerializeField] public int fishCaught;
     [SerializeField] private int minigameRNGNumber;
     [SerializeField] private int minigameOneProgress;
     [SerializeField] private string lastHitKey;
