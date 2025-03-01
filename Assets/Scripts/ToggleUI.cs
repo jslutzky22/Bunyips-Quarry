@@ -42,6 +42,6 @@ public class ToggleUI : MonoBehaviour
     private void ToggleCanvas(InputAction.CallbackContext context)
     {
         isUIActive = !isUIActive;
-        uiCanvas.gameObject.SetActive(isUIActive); // Directly enable/disable the Canvas
+        //uiCanvas.gameObject.SetActive(isUIActive); // Directly enable/disable the Canvas
     }
 }
