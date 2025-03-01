@@ -2037,7 +2037,7 @@ MonoBehaviour:
   fishingBackground: {fileID: 1582273869}
   flashlight: {fileID: 242952111}
   player: {fileID: 416954054}
-  fishEatenText: {fileID: 1845949210}
+  fishEatenText: {fileID: 94907703}
 --- !u!4 &710843757
 Transform:
   m_ObjectHideFlags: 0
