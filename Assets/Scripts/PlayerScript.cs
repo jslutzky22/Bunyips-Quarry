@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
@@ -48,6 +49,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float minigameTwoTimer;
     [SerializeField] private bool minigameTwoWon;
     [SerializeField] private bool minigameTwoReverse;
+    [SerializeField] private float winFishAmount; //How Many Fish to win
 
     void Start()
     {
@@ -388,6 +390,10 @@ public class PlayerScript : MonoBehaviour
             {
                 fishCaught++;
                 fishingBarProgress -= 1f;
+                if (fishCaught >= winFishAmount)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                }
             }
         }
 
