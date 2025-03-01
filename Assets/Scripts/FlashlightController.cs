@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class FlashlightController : MonoBehaviour
 {
     public Light flashlight; // Assign the Spot Light in the Inspector
-    public Canvas uiCanvas; // Reference to the UI Canvas to toggle the flashlight
+    public GameObject fishingBackground; // Reference to the UI Canvas to toggle the flashlight
 
 
     private Camera mainCamera;
@@ -17,7 +17,7 @@ public class FlashlightController : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if the UI Canvas is active, and disable flashlight accordingly
-        if (uiCanvas.gameObject.activeInHierarchy)
+        if (fishingBackground.gameObject.activeInHierarchy)
         {
             flashlight.enabled = false; // Turn off flashlight when UI is active
         }

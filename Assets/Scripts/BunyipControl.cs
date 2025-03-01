@@ -12,7 +12,7 @@ public class BunyipControl : MonoBehaviour
     public float timeBetweenMoves = 5f; // Time in seconds between each move attempt
     private float moveTimer = 0f; // Tracks time since last move
 
-    public Canvas uiCanvas; // Reference to the UI Canvas to track if the monster should move
+    public GameObject fishingBackground; // Reference to the UI Canvas to track if the monster should move
     public Light flashlight; // Reference to the player's flashlight
     public PlayerScript player; // Reference to PlayerScript to access the player's fish count and check for death
 
@@ -34,7 +34,7 @@ public class BunyipControl : MonoBehaviour
     private void Update()
     {
         // Only try moving the monster when the UI Canvas is active (i.e., the player isn't looking)
-        if (uiCanvas.gameObject.activeInHierarchy)
+        if (fishingBackground.gameObject.activeInHierarchy)
         {
             // Increment the timer
             moveTimer += Time.deltaTime;
