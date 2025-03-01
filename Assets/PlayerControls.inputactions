@@ -6,7 +6,7 @@
             "id": "137607f9-bee6-4672-b14d-b9a1906ad854",
             "actions": [
                 {
-                    "name": "TurnAround",
+                    "name": "Turn Around",
                     "type": "Button",
                     "id": "aebd322e-5644-4332-be74-59058da5a391",
                     "expectedControlType": "Button",
@@ -68,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TurnAround",
+                    "action": "Turn Around",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
