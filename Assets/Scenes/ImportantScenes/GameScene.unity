@@ -2008,7 +2008,7 @@ GameObject:
   - component: {fileID: 710843757}
   - component: {fileID: 710843756}
   m_Layer: 0
-  m_Name: Move Points
+  m_Name: Bunyip Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2038,6 +2038,7 @@ MonoBehaviour:
   flashlight: {fileID: 242952111}
   player: {fileID: 416954054}
   fishEatenText: {fileID: 94907703}
+  holdTimeToReset: 2
 --- !u!4 &710843757
 Transform:
   m_ObjectHideFlags: 0

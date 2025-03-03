@@ -20,6 +20,9 @@ public class BunyipControl : MonoBehaviour
     public TextMeshProUGUI fishEatenText;
     private float textDisplayTime = 2f; // How long the text should be displayed
 
+    [SerializeField] private float holdTimeToReset = 3f; // Time in seconds the flashlight must shine on the Bunyip to reset it
+    private float flashlightHoldTimer = 0f; // Timer to track how long the flashlight has been shining on the Bunyip
+
     private Camera mainCamera; // Reference to the main camera
 
     private void Start()
@@ -33,7 +36,7 @@ public class BunyipControl : MonoBehaviour
 
     private void Update()
     {
-        // Only try moving the monster when the UI Canvas is active (i.e., the player isn't looking)
+        // Only try moving the monster when the fishing UI is active (i.e., the player isn't looking)
         if (fishingBackground.gameObject.activeInHierarchy)
         {
             // Increment the timer
@@ -119,12 +122,31 @@ public class BunyipControl : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                // If the monster is hit by the flashlight, reset to the starting position
+                // If the monster is hit by the flashlight, start the hold timer
                 if (hitInfo.collider.gameObject == monsterPositions[currentMonsterIndex])
                 {
-                    ResetMonsterPosition();
+                    flashlightHoldTimer += Time.deltaTime; // Accumulate the time flashlight is on the Bunyip
+
+                    // If the flashlight has been held on the Bunyip for enough time, reset the monster
+                    if (flashlightHoldTimer >= holdTimeToReset)
+                    {
+                        ResetMonsterPosition();
+                        flashlightHoldTimer = 0f; // Reset the hold timer after reset
+                    }
+                }
+                else
+                {
+                    flashlightHoldTimer = 0f; // Reset the timer if the flashlight moves off the Bunyip
                 }
             }
+            else
+            {
+                flashlightHoldTimer = 0f; // Reset the timer if the raycast doesn't hit the Bunyip
+            }
+        }
+        else
+        {
+            flashlightHoldTimer = 0f; // Reset the timer if the flashlight is off
         }
     }
 
