@@ -103,7 +103,7 @@ public class BunyipControl : MonoBehaviour
     private IEnumerator ShowFishEatenMessage()
     {
         // Show the text
-        fishEatenText.text = "The monster ate 1 fish!";
+        fishEatenText.text = "Bunyip ate 1 fish!";
 
         // Wait for a few seconds
         yield return new WaitForSeconds(textDisplayTime);
