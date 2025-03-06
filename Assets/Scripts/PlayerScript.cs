@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,6 +28,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject minigameTwoUI;
     [SerializeField] private Slider minigameTwoSlider;
     [SerializeField] private TMP_Text fishCaughtText;
+    [SerializeField] private GameObject minigameThreeButton;
+    [SerializeField] private GameObject minigameThreeUI;
+    [SerializeField] private Slider minigameThreeSlider;
 
     [Header("Values")]
     [SerializeField] private bool minigameOneUIWasActive;
@@ -51,9 +55,18 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool minigameTwoWon;
     [SerializeField] private bool minigameTwoReverse;
     [SerializeField] private float winFishAmount; //How Many Fish to win
+    [SerializeField] private int lastMinigame;
+    [SerializeField] private float minigameThreeValue;
+    [SerializeField] private float batteryPercentage;
+    [SerializeField] private float batteryDrain;
+    [SerializeField] private bool leftClickHeld;
+    [SerializeField] private bool minigameThreeActive;
+    [SerializeField] private float minigameThreeTimer;
 
     void Start()
     {
+        batteryPercentage = 1f;
+        lastMinigame = 0;
         activeSceneIs2D = true;
         interactActive = false;
         interactDisabled = false;
@@ -65,6 +78,9 @@ public class PlayerScript : MonoBehaviour
         Interact = PlayerControls.currentActionMap.FindAction("Interact");
         LeftClick = PlayerControls.currentActionMap.FindAction("LeftClick");
         RightClick = PlayerControls.currentActionMap.FindAction("RightClick");
+
+        LeftClick.started += Handle_LeftClickStarted;
+        LeftClick.canceled += Handle_LeftClickCanceled;
 
         StartCoroutine(Minigames());
     }
@@ -102,6 +118,16 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private void Handle_LeftClickStarted(InputAction.CallbackContext obj)
+    {
+        leftClickHeld = true;
+    }
+
+    private void Handle_LeftClickCanceled(InputAction.CallbackContext obj)
+    {
+        leftClickHeld = false;
+    }
+
     IEnumerator InteractPushed()
     {
         interactActive = true;
@@ -119,7 +145,11 @@ public class PlayerScript : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.1f);
         }
-        minigameRNGNumber = Random.Range(1, 3);
+        minigameRNGNumber = Random.Range(1, 4);
+        while (minigameRNGNumber == lastMinigame)
+        {
+            minigameRNGNumber = Random.Range(1, 4);
+        }
         if (minigameRNGNumber == 1)
         {
             StartCoroutine(MinigameOne());
@@ -127,6 +157,10 @@ public class PlayerScript : MonoBehaviour
         if (minigameRNGNumber == 2)
         {
             StartCoroutine(MinigameTwo());
+        }
+        if (minigameRNGNumber == 3)
+        {
+            StartCoroutine(MinigameThree());
         }
     }
 
@@ -169,6 +203,7 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarProgress += 0.15f;
         }
+        lastMinigame = 1;
         StartCoroutine(Minigames());
     }
 
@@ -276,6 +311,36 @@ public class PlayerScript : MonoBehaviour
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
+        lastMinigame = 2;
+        StartCoroutine(Minigames());
+    }
+
+    IEnumerator MinigameThree()
+    {
+        minigameThreeValue = 0;
+        minigameThreeTimer = 0;
+        minigameThreeActive = true;
+        minigameThreeUI.SetActive(true);
+        while (minigameThreeValue < 1 && minigameThreeTimer < 20)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            minigameThreeTimer += 0.1f;
+            minigameThreeValue -= 0.025f;
+            
+            while (!activeSceneIs2D)
+            {
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+        }
+        minigameThreeUI.SetActive(false);
+        minigameThreeActive = false;
+        if (minigameThreeValue >= 1)
+        {
+            fishingBarProgress += 0.15f;
+        }
+        minigameThreeValue = 0;
+        minigameThreeTimer = 0;
+        lastMinigame = 3;
         StartCoroutine(Minigames());
     }
 
@@ -290,18 +355,17 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity += 0.01f;
+            transitionOpacity += 0.02f;
         }
         transitionOpacity = 1f;
         while (transitionLerp < 1)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionLerp += 0.01f;
+            transitionLerp += 0.02f;
         }
         transitionLerp = 1f;
         fishingCanvasBackground.SetActive(false);
-        fishingBar.gameObject.SetActive(false);
         if (!(!minigameOneUI.activeSelf))
         {
             minigameOneUI.SetActive(false);
@@ -326,7 +390,7 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity -= 0.01f;
+            transitionOpacity -= 0.02f;
         }
         transitionOpacity = 0f;
         transition.SetActive(false);
@@ -343,18 +407,17 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity += 0.01f;
+            transitionOpacity += 0.02f;
         }
         transitionOpacity = 1f;
         while (transitionLerp > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionLerp -= 0.01f;
+            transitionLerp -= 0.02f;
         }
         transitionLerp = 0f;
         fishingCanvasBackground.SetActive(true);
-        fishingBar.gameObject.SetActive(true);
         if (minigameOneUIWasActive)
         {
             minigameOneUI.SetActive(true);
@@ -379,7 +442,7 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity -= 0.01f;
+            transitionOpacity -= 0.02f;
         }
         transitionOpacity = 0f;
         transition.SetActive(false);
@@ -387,21 +450,61 @@ public class PlayerScript : MonoBehaviour
         transitioning = false;
     }
 
+    public void ButtonPressedDown()
+    {
+        if (minigameThreeActive)
+        {
+            minigameThreeValue += 0.15f;
+        }
+    }
+
+    IEnumerator BatteryDecrease()
+    {
+        if (batteryDrain == 0)
+        {
+            batteryDrain = 0.001f;
+        }
+        while (!activeSceneIs2D && !transitioning)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            batteryPercentage -= batteryDrain;
+        }
+    }
+
     void FixedUpdate()
     {
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
         if (activeSceneIs2D)
         {
-            fishingBarProgress += 0.00005f;
+            fishingBarProgress += 0.000065f;
+
+            minigameThreeSlider.value = minigameThreeValue;
+
             if (fishingBarProgress >= 1f)
             {
                 fishCaught++;
                 fishingBarProgress -= 1f;
+                batteryPercentage += 0.01f * Random.Range(1, 3);
                 if (fishCaught >= winFishAmount)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
                 }
             }
+        }
+
+        if (!activeSceneIs2D)
+        {
+            StartCoroutine(BatteryDecrease());
+        }
+
+        if (!activeSceneIs2D)
+        {
+            fishingBarProgress -= 0.0000325f;
+        }
+
+        if (batteryPercentage > 1f)
+        {
+            batteryPercentage = 1f;
         }
 
         fishCaughtText.text = "Fish Caught: " + fishCaught;

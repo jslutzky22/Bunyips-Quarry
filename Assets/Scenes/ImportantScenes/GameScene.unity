@@ -122,6 +122,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &11062791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7815524541155861967, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+  m_PrefabInstance: {fileID: 1946554396220595300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &22466219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5712302800858250449, guid: 9d8b954565e1c6c49815173562f3c29c, type: 3}
@@ -1097,6 +1108,9 @@ MonoBehaviour:
   minigameTwoUI: {fileID: 1524529773}
   minigameTwoSlider: {fileID: 1576470776}
   fishCaughtText: {fileID: 1845949210}
+  minigameThreeButton: {fileID: 972552239}
+  minigameThreeUI: {fileID: 558637617}
+  minigameThreeSlider: {fileID: 11062791}
   minigameOneUIWasActive: 0
   minigameOneAWasActive: 0
   minigameOneDWasActive: 0
@@ -1119,6 +1133,13 @@ MonoBehaviour:
   minigameTwoWon: 0
   minigameTwoReverse: 0
   winFishAmount: 3
+  lastMinigame: 0
+  minigameThreeValue: 0
+  batteryPercentage: 0
+  batteryDrain: 0
+  leftClickHeld: 0
+  minigameThreeActive: 0
+  minigameThreeTimer: 0
 --- !u!1001 &430680500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1127,6 +1148,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 834285339}
     m_Modifications:
+    - target: {fileID: 3301457571312168652, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301457571312168652, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 14.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3832061264187315794, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1178,6 +1207,26 @@ PrefabInstance:
     - target: {fileID: 3832061264187315794, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861080080256775184, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_text
+      value: Alternate Between Pressing A and D to wear the Fish out!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861080080256775184, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_fontSize
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861080080256775184, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945100634454800562, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 77.472
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945100634454800562, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 13.736
       objectReference: {fileID: 0}
     - target: {fileID: 8409400383912209196, guid: 2d0f820e7b10d0e4db54295b51b7fd9f, type: 3}
       propertyPath: m_Name
@@ -1889,6 +1938,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52cc190fae5ff3846926646c00e5db8b, type: 3}
+--- !u!1 &558637617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8112638819491239599, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+  m_PrefabInstance: {fileID: 1946554396220595300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &558637618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+  m_PrefabInstance: {fileID: 1946554396220595300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &569549470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2580,6 +2639,7 @@ RectTransform:
   - {fileID: 855789765}
   - {fileID: 1845949209}
   - {fileID: 674374370}
+  - {fileID: 558637618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2901,6 +2961,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d348e640bd121b4d873587b6c568d85, type: 3}
+--- !u!1 &972552239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1217461858108019457, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+  m_PrefabInstance: {fileID: 1946554396220595300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1005538646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4853,6 +4918,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4028357392751601997, guid: 5edbf2b22446f1440bd3047f3646d7fa, type: 3}
   m_PrefabInstance: {fileID: 330613786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1946554396220595300
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 834285339}
+    m_Modifications:
+    - target: {fileID: 207999369580822553, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_text
+      value: Rapidly click to reel in!!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345692532811477857, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 416954054}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527420464199042351, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112638819491239599, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_Name
+      value: MinigameThree
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112638819491239599, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179332454134859770, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
 --- !u!1001 &4842717291146682405
 PrefabInstance:
   m_ObjectHideFlags: 0
