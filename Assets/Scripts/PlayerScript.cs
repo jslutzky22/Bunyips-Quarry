@@ -46,6 +46,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float transitionLerp; //is a number from 0-1
     [SerializeField] private int lastMinigamePlayed;
     [SerializeField] private int minigameRNGNumber;
+    [SerializeField] private float minigameChooseTimer;
     [SerializeField] private bool minigameOneUIWasActive;
     [SerializeField] private bool minigameOneAWasActive;
     [SerializeField] private bool minigameOneDWasActive;
@@ -186,19 +187,15 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator Minigames()
     {
-        yield return new WaitForSecondsRealtime(3f);
-        while (!activeSceneIs2D)
+        minigameChooseTimer = 3f;
+        while (minigameChooseTimer > 0)
         {
+            while (minigameChooseTimer > 0 && activeSceneIs2D && !gamePaused) 
+            {
+                yield return new WaitForSecondsRealtime(0.1f);
+                minigameChooseTimer -= 0.1f;
+            }
             yield return new WaitForSecondsRealtime(0.1f);
-        }
-        while (gamePaused)
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-            gameWasPausedDuringMinigameTimer = true;
-        }
-        if (gameWasPausedDuringMinigameTimer)
-        {
-            yield return new WaitForSecondsRealtime(3f);
         }
         minigameRNGNumber = Random.Range(1, 4);
         while (minigameRNGNumber == lastMinigamePlayed)
