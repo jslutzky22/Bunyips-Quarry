@@ -67,6 +67,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool interactDisabled;
     [SerializeField] private bool leftClickHeld;
     [SerializeField] public bool gamePaused;
+    [SerializeField] private bool gameWasPausedDuringMinigameTimer;
     [SerializeField] private float batteryPercentage;
     [SerializeField] private float batteryDrain;
 
@@ -192,7 +193,12 @@ public class PlayerScript : MonoBehaviour
         }
         while (gamePaused)
         {
-            yield return new WaitForSecondsRealtime();
+            yield return new WaitForSecondsRealtime(0.1f);
+            gameWasPausedDuringMinigameTimer = true;
+        }
+        if (gameWasPausedDuringMinigameTimer)
+        {
+            yield return new WaitForSecondsRealtime(3f);
         }
         minigameRNGNumber = Random.Range(1, 4);
         while (minigameRNGNumber == lastMinigamePlayed)
