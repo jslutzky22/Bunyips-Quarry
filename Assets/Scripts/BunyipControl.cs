@@ -25,6 +25,8 @@ public class BunyipControl : MonoBehaviour
 
     private Camera mainCamera; // Reference to the main camera
 
+    PlayerScript player_script;
+
     private void Start()
     {
         mainCamera = Camera.main; // Cache the Main Camera at the start
@@ -32,12 +34,14 @@ public class BunyipControl : MonoBehaviour
 
         // Ensure the text is initially hidden
         fishEatenText.text = "";
+
+        player_script = PlayerScript.Instance;
     }
 
     private void Update()
     {
         // Only try moving the monster when the fishing UI is active (i.e., the player isn't looking)
-        if (fishingBackground.gameObject.activeInHierarchy)
+        if (fishingBackground.gameObject.activeInHierarchy && !player_script.gamePaused)
         {
             // Increment the timer
             moveTimer += Time.deltaTime;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -57,6 +58,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float minigameTwoValue;
     [SerializeField] private float minigameTwoTimer;
     [SerializeField] private bool minigameThreeActive;
+    [SerializeField] private bool minigameThreeUIWasActive;
     [SerializeField] private float minigameThreeTimer;
     [SerializeField] private float minigameThreeValue;
     [SerializeField] private bool activeSceneIs2D;
@@ -64,9 +66,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool interactActive;
     [SerializeField] private bool interactDisabled;
     [SerializeField] private bool leftClickHeld;
-    [SerializeField] private bool gamePaused;
+    [SerializeField] public bool gamePaused;
     [SerializeField] private float batteryPercentage;
     [SerializeField] private float batteryDrain;
+
+    [HideInInspector] public static PlayerScript Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -180,6 +189,10 @@ public class PlayerScript : MonoBehaviour
         while (!activeSceneIs2D)
         {
             yield return new WaitForSecondsRealtime(0.1f);
+        }
+        while (gamePaused)
+        {
+            yield return new WaitForSecondsRealtime();
         }
         minigameRNGNumber = Random.Range(1, 4);
         while (minigameRNGNumber == lastMinigamePlayed)
@@ -422,6 +435,11 @@ public class PlayerScript : MonoBehaviour
             minigameTwoUI.SetActive(false);
             minigameTwoUIWasActive = true;
         }
+        if (!(!minigameThreeUI.activeSelf))
+        {
+            minigameThreeUI.SetActive(false);
+            minigameThreeUIWasActive = true;
+        }
         while (transitionOpacity > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
@@ -473,6 +491,11 @@ public class PlayerScript : MonoBehaviour
         {
             minigameTwoUI.SetActive(true);
             minigameTwoUIWasActive = false;
+        }
+        if (minigameThreeUIWasActive)
+        {
+            minigameThreeUI.SetActive(true);
+            minigameThreeUIWasActive = false;
         }
         while (transitionOpacity > 0)
         {
