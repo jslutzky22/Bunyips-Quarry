@@ -23,54 +23,56 @@ public class PlayerScript : MonoBehaviour
 
     [Header("GameObjects")]
     [SerializeField] private GameObject fishingCanvasBackground;
-    [SerializeField] private GameObject transition;
+    [SerializeField] private TMP_Text fishCaughtText;
     [SerializeField] private Slider fishingBar;
+    [SerializeField] private GameObject transition;
     [SerializeField] private GameObject minigameOneUI;
     [SerializeField] private GameObject minigameOneA;
     [SerializeField] private GameObject minigameOneD;
     [SerializeField] private GameObject minigameTwoUI;
     [SerializeField] private Slider minigameTwoSlider;
-    [SerializeField] private TMP_Text fishCaughtText;
     [SerializeField] private GameObject minigameThreeButton;
     [SerializeField] private GameObject minigameThreeUI;
     [SerializeField] private Slider minigameThreeSlider;
+    [SerializeField] private GameObject pauseMenu;
 
     [Header("Values")]
-    [SerializeField] private bool minigameOneUIWasActive;
-    [SerializeField] private bool minigameOneAWasActive;
-    [SerializeField] private bool minigameOneDWasActive;
-    [SerializeField] private bool minigameTwoUIWasActive;
-    [SerializeField] private bool minigameTwoSliderWasActive;
-    [SerializeField] private bool activeSceneIs2D;
+    [SerializeField] private float fishingBarProgress;
+    [SerializeField] public int fishCaught;
+    [SerializeField] private float winFishAmount; //How Many Fish to win
     [SerializeField] private bool transitioning;
     [SerializeField] private float transitionOpacity; //is a number from 0-1
     [SerializeField] private float transitionLerp; //is a number from 0-1
-    [SerializeField] private float fishingBarProgress;
-    [SerializeField] public int fishCaught;
+    [SerializeField] private int lastMinigamePlayed;
     [SerializeField] private int minigameRNGNumber;
-    [SerializeField] private int minigameOneProgress;
-    [SerializeField] private string lastHitKey;
+    [SerializeField] private bool minigameOneUIWasActive;
+    [SerializeField] private bool minigameOneAWasActive;
+    [SerializeField] private bool minigameOneDWasActive;
     [SerializeField] private float minigameOneTimer;
-    [SerializeField] private float minigameTwoValue;
-    [SerializeField] private bool interactActive;
-    [SerializeField] private bool interactDisabled;
-    [SerializeField] private float minigameTwoTimer;
+    [SerializeField] private int minigameOneProgress;
+    [SerializeField] private bool minigameTwoUIWasActive;
+    [SerializeField] private bool minigameTwoSliderWasActive;
     [SerializeField] private bool minigameTwoWon;
     [SerializeField] private bool minigameTwoReverse;
-    [SerializeField] private float winFishAmount; //How Many Fish to win
-    [SerializeField] private int lastMinigame;
-    [SerializeField] private float minigameThreeValue;
-    [SerializeField] private float batteryPercentage;
-    [SerializeField] private float batteryDrain;
-    [SerializeField] private bool leftClickHeld;
+    [SerializeField] private float minigameTwoValue;
+    [SerializeField] private float minigameTwoTimer;
     [SerializeField] private bool minigameThreeActive;
     [SerializeField] private float minigameThreeTimer;
+    [SerializeField] private float minigameThreeValue;
+    [SerializeField] private bool activeSceneIs2D;
+    [SerializeField] private string lastHitKey;
+    [SerializeField] private bool interactActive;
+    [SerializeField] private bool interactDisabled;
+    [SerializeField] private bool leftClickHeld;
     [SerializeField] private bool gamePaused;
+    [SerializeField] private float batteryPercentage;
+    [SerializeField] private float batteryDrain;
 
     void Start()
     {
+        gamePaused = false;
         batteryPercentage = 1f;
-        lastMinigame = 0;
+        lastMinigamePlayed = 0;
         activeSceneIs2D = true;
         interactActive = false;
         interactDisabled = false;
@@ -125,14 +127,19 @@ public class PlayerScript : MonoBehaviour
 
     void OnPause()
     {
+        Debug.Log("OnPause");
         if (!gamePaused && !transitioning)
         {
+            Debug.Log("!gamePaused and !transitioning");
             gamePaused = true;
             activeSceneIs2D = false;
             transitioning = true;
+            pauseMenu.SetActive(true);
+            
         }
-        if (gamePaused)
+        else if (gamePaused)
         {
+            Debug.Log("gamePaused");
             gamePaused = false;
             if (!(!fishingCanvasBackground.activeSelf))
             {
@@ -142,7 +149,8 @@ public class PlayerScript : MonoBehaviour
             {
                 activeSceneIs2D = false;
             }
-            transitioning = true;
+            transitioning = false;
+            pauseMenu.SetActive(false);
         }
     }
 
@@ -174,7 +182,7 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
         }
         minigameRNGNumber = Random.Range(1, 4);
-        while (minigameRNGNumber == lastMinigame)
+        while (minigameRNGNumber == lastMinigamePlayed)
         {
             minigameRNGNumber = Random.Range(1, 4);
         }
@@ -231,7 +239,7 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarProgress += 0.15f;
         }
-        lastMinigame = 1;
+        lastMinigamePlayed = 1;
         StartCoroutine(Minigames());
     }
 
@@ -339,7 +347,7 @@ public class PlayerScript : MonoBehaviour
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
-        lastMinigame = 2;
+        lastMinigamePlayed = 2;
         StartCoroutine(Minigames());
     }
 
@@ -368,7 +376,7 @@ public class PlayerScript : MonoBehaviour
         }
         minigameThreeValue = 0;
         minigameThreeTimer = 0;
-        lastMinigame = 3;
+        lastMinigamePlayed = 3;
         StartCoroutine(Minigames());
     }
 
@@ -510,17 +518,18 @@ public class PlayerScript : MonoBehaviour
         {
             activeSceneIs2D = false;
         }
-        transitioning = true;
+        transitioning = false;
+        pauseMenu.SetActive(false);
     }
 
     public void BackToMenu() 
     {
-        
+        SceneManager.GetSceneByBuildIndex(0);
     }
 
     public void QuitGame()
     {
-        
+        Application.Quit();
     }
 
     void FixedUpdate()

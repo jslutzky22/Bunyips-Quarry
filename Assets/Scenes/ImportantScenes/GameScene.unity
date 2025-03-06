@@ -1086,6 +1086,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashlight: {fileID: 242952111}
   fishingBackground: {fileID: 1582273869}
+  castRadius: 0.5
+  castLength: 5
+  maxDistance: 100
 --- !u!114 &416954054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,6 +1114,7 @@ MonoBehaviour:
   minigameThreeButton: {fileID: 972552239}
   minigameThreeUI: {fileID: 558637617}
   minigameThreeSlider: {fileID: 11062791}
+  pauseMenu: {fileID: 1142703642}
   minigameOneUIWasActive: 0
   minigameOneAWasActive: 0
   minigameOneDWasActive: 0
@@ -3097,6 +3101,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2838291651862434120, guid: 52cc190fae5ff3846926646c00e5db8b, type: 3}
   m_PrefabInstance: {fileID: 708434898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1142703642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4425831969463210052, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
+  m_PrefabInstance: {fileID: 1552667152927622057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1144052202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,6 +4940,10 @@ PrefabInstance:
     - target: {fileID: 4425831969463210052, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
       propertyPath: m_Name
       value: PauseScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4425831969463210052, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4599811629718718509, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
