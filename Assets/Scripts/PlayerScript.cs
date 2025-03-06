@@ -145,10 +145,10 @@ public class PlayerScript : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.1f);
         }
-        minigameRNGNumber = Random.Range(1, 3);
+        minigameRNGNumber = Random.Range(1, 4);
         while (minigameRNGNumber == lastMinigame)
         {
-            minigameRNGNumber = Random.Range(1, 3);
+            minigameRNGNumber = Random.Range(1, 4);
         }
         if (minigameRNGNumber == 1)
         {
@@ -325,6 +325,12 @@ public class PlayerScript : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.1f);
             minigameThreeTimer += 0.1f;
+            minigameThreeValue -= 0.025f;
+            
+            while (!activeSceneIs2D)
+            {
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
         }
         minigameThreeUI.SetActive(false);
         minigameThreeActive = false;
@@ -446,16 +452,9 @@ public class PlayerScript : MonoBehaviour
 
     public void ButtonPressedDown()
     {
-        StartCoroutine(ButtonPressed());
-    }
-
-    IEnumerator ButtonPressed()
-    {
-        while (leftClickHeld && minigameThreeActive)
+        if (minigameThreeActive)
         {
-            minigameThreeValue += 0.01f;
-            yield return new WaitForSecondsRealtime(0.1f);
-            minigameThreeSlider.value = minigameThreeValue;
+            minigameThreeValue += 0.15f;
         }
     }
 
@@ -478,6 +477,9 @@ public class PlayerScript : MonoBehaviour
         if (activeSceneIs2D)
         {
             fishingBarProgress += 0.000065f;
+
+            minigameThreeSlider.value = minigameThreeValue;
+
             if (fishingBarProgress >= 1f)
             {
                 fishCaught++;

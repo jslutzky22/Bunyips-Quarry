@@ -4926,6 +4926,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 834285339}
     m_Modifications:
+    - target: {fileID: 207999369580822553, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
+      propertyPath: m_text
+      value: Rapidly click to reel in!!
+      objectReference: {fileID: 0}
     - target: {fileID: 1345692532811477857, guid: c5994372c2dc26a43b92c86df61775d8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
