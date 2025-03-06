@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private TMP_Text fishCaughtText;
     [SerializeField] private GameObject minigameThreeButton;
     [SerializeField] private GameObject minigameThreeUI;
+    [SerializeField] private Slider minigameThreeSlider;
 
     [Header("Values")]
     [SerializeField] private bool minigameOneUIWasActive;
@@ -144,10 +145,10 @@ public class PlayerScript : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.1f);
         }
-        minigameRNGNumber = Random.Range(1, 4);
+        minigameRNGNumber = Random.Range(1, 3);
         while (minigameRNGNumber == lastMinigame)
         {
-            minigameRNGNumber = Random.Range(1, 4);
+            minigameRNGNumber = Random.Range(1, 3);
         }
         if (minigameRNGNumber == 1)
         {
@@ -454,6 +455,7 @@ public class PlayerScript : MonoBehaviour
         {
             minigameThreeValue += 0.01f;
             yield return new WaitForSecondsRealtime(0.1f);
+            minigameThreeSlider.value = minigameThreeValue;
         }
     }
 
