@@ -40,6 +40,7 @@ public class PlayerScript : MonoBehaviour
     private float fishingAudioTime;
     [SerializeField] private AudioSource forestAudio;
     private float forestAudioTime;
+    //[SerializeField] private Slider batteryBar;
 
     [Header("Values")]
     [SerializeField] private float fishingBarProgress;
@@ -557,6 +558,7 @@ public class PlayerScript : MonoBehaviour
             batteryDraining = true;
             yield return new WaitForSecondsRealtime(0.1f);
             batteryPercentage -= batteryDrain;
+            //batteryBar.GetComponent<Slider>().value = batteryPercentage / 1;
         }
         batteryDraining = false;
     }
