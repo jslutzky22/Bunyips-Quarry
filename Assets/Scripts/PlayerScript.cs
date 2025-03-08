@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
 public class PlayerScript : MonoBehaviour
 {
     [Header("InputActions")]
@@ -36,6 +38,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject minigameThreeUI;
     [SerializeField] private Slider minigameThreeSlider;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private AudioSource fishingAudio;
+    private float fishingAudioTime;
+    [SerializeField] private AudioSource forestAudio;
+    private float forestAudioTime;
+    [SerializeField]
+    private UnityEngine.UI.Image batteryBar;
+ 
+    AudioSource audioSource;
+
+    //[SerializeField] private Slider batteryBar;
 
     [Header("Values")]
     [SerializeField] private float fishingBarProgress;
@@ -73,6 +85,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float batteryDrain;
     [SerializeField] private bool batteryDraining;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip lightClick;
+    [SerializeField] private AudioClip offClick;
+    [SerializeField] private AudioClip minigameSucess;
+    [SerializeField] private AudioClip reelIn;
+    [SerializeField] private AudioClip fishSplash;
+    [SerializeField] private AudioClip transitionSound;
+
+
     [HideInInspector] public static PlayerScript Instance;
 
     private void Awake()
@@ -102,6 +123,14 @@ public class PlayerScript : MonoBehaviour
         LeftClick.canceled += Handle_LeftClickCanceled;
 
         StartCoroutine(Minigames());
+
+
+        //MAKE FISHING SIDE START PLAYING
+        forestAudioTime = forestAudio.time;
+        forestAudio.Pause();
+        forestAudio.mute = true;
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     void OnTurnAround()
@@ -111,10 +140,25 @@ public class PlayerScript : MonoBehaviour
             if (!fishingCanvasBackground.activeSelf)
             {
                 StartCoroutine(TransitionToFishing());
+                audioSource.PlayOneShot(transitionSound, 1F);
+                forestAudioTime = forestAudio.time;
+                fishingAudio.UnPause();
+                fishingAudio.time = fishingAudioTime;
+                forestAudio.Pause();
+
+                //MAKE FISH SIDE AUDIO PLAY, RECORD FOREST SIDE AUDIO POINT, PAUSE FOREST SIDE AUDIO POINT 
             }
             else
             {
                 StartCoroutine(TransitionFromFishing());
+                audioSource.PlayOneShot(transitionSound, 1F);
+                fishingAudioTime = fishingAudio.time;
+                forestAudio.UnPause();
+                forestAudio.mute = false;
+                forestAudio.time = forestAudioTime;
+                fishingAudio.Pause();
+
+                //MAKE FOREST SIDE AUDIO PLAY, RECORD FOREST SIDE AUDIO POINT, FOREST FISH SIDE AUDIO POINT 
             }
         }
     }
@@ -256,6 +300,9 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarProgress += 0.15f;
             batteryPercentage += 0.01f * Random.Range(1, 3);
+            batteryBar.fillAmount = batteryPercentage;
+            audioSource.PlayOneShot(reelIn, 1F);
+            audioSource.PlayOneShot(minigameSucess, 1F);
         }
         lastMinigamePlayed = 1;
         StartCoroutine(Minigames());
@@ -363,6 +410,9 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarProgress += 0.15f;
             batteryPercentage += 0.01f * Random.Range(1, 3);
+            batteryBar.fillAmount = batteryPercentage;
+            audioSource.PlayOneShot(reelIn, 1F);
+            audioSource.PlayOneShot(minigameSucess, 1F);
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
@@ -393,6 +443,9 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarProgress += 0.15f;
             batteryPercentage += 0.01f * Random.Range(1, 3);
+            batteryBar.fillAmount = batteryPercentage;
+            audioSource.PlayOneShot(reelIn, 1F);
+            audioSource.PlayOneShot(minigameSucess, 1F);
         }
         minigameThreeValue = 0;
         minigameThreeTimer = 0;
@@ -407,6 +460,7 @@ public class PlayerScript : MonoBehaviour
         transitionLerp = 0f;
         transitionOpacity = 0f;
         transition.SetActive(true);
+        
         while (transitionOpacity < 1)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
@@ -422,6 +476,7 @@ public class PlayerScript : MonoBehaviour
         }
         transitionLerp = 1f;
         fishingCanvasBackground.SetActive(false);
+        audioSource.PlayOneShot(lightClick, 1F);
         if (!(!minigameOneUI.activeSelf))
         {
             minigameOneUI.SetActive(false);
@@ -456,6 +511,7 @@ public class PlayerScript : MonoBehaviour
         transitionOpacity = 0f;
         transition.SetActive(false);
         transitioning = false;
+        
     }
 
     IEnumerator TransitionToFishing()
@@ -464,6 +520,7 @@ public class PlayerScript : MonoBehaviour
         transitionLerp = 1f;
         transitionOpacity = 0f;
         transition.SetActive(true);
+        audioSource.PlayOneShot(offClick, 1F);
         while (transitionOpacity < 1)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
@@ -535,6 +592,8 @@ public class PlayerScript : MonoBehaviour
             batteryDraining = true;
             yield return new WaitForSecondsRealtime(0.1f);
             batteryPercentage -= batteryDrain;
+            batteryBar.fillAmount = batteryPercentage;
+            //batteryBar.GetComponent<Slider>().value = batteryPercentage / 1;
         }
         batteryDraining = false;
     }
@@ -577,6 +636,7 @@ public class PlayerScript : MonoBehaviour
             {
                 fishCaught++;
                 fishingBarProgress -= 1f;
+                audioSource.PlayOneShot(fishSplash, 1F);
                 if (fishCaught >= winFishAmount)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);

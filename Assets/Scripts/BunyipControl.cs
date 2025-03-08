@@ -55,6 +55,8 @@ public class BunyipControl : MonoBehaviour
             // Increment the timer
             moveTimer += Time.deltaTime;
 
+           
+
             // Try moving the monster after the timer reaches the randomly generated timeBetweenMoves
             if (moveTimer >= timeBetweenMoves)
             {

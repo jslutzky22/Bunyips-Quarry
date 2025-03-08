@@ -23,10 +23,13 @@ public class FlashlightController : MonoBehaviour
     public float cooldownDuration = 3f; // Cooldown time between flickers
 
     public BunyipControl bunyipController; // Reference to the Bunyip controller script
+    AudioSource audioSource;
+    [SerializeField] private AudioClip jumpscareStinger;
 
     private void Awake()
     {
         mainCamera = Camera.main; // Get the main camera
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -80,6 +83,7 @@ public class FlashlightController : MonoBehaviour
             {
                 // Start the shake and flicker effect if the Bunyip is hit
                 StartCoroutine(ShakeAndFlickerFlashlight());
+                audioSource.PlayOneShot(jumpscareStinger, 1F);
                 break;
             }
         }
@@ -89,6 +93,7 @@ public class FlashlightController : MonoBehaviour
     private IEnumerator ShakeAndFlickerFlashlight()
     {
         isShaking = true; // Set the shaking state to true
+        
 
         Vector3 originalPosition = flashlight.transform.localPosition; // Store the original position
         float elapsedTime = 0f;
