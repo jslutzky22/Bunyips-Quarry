@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 197024261}
   - component: {fileID: 197024260}
   m_Layer: 6
-  m_Name: Bunyip 5
+  m_Name: Bunyip 5 (Off Screen)
   m_TagString: Bunyip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,47 +1034,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerControls: {fileID: 416954052}
   fishingCanvasBackground: {fileID: 1582273869}
-  transition: {fileID: 855789766}
+  fishCaughtText: {fileID: 1845949210}
   fishingBar: {fileID: 1954301743}
+  transition: {fileID: 855789766}
   minigameOneUI: {fileID: 1606184563}
   minigameOneA: {fileID: 1632448313}
   minigameOneD: {fileID: 1623453986}
   minigameTwoUI: {fileID: 1524529773}
   minigameTwoSlider: {fileID: 1576470776}
-  fishCaughtText: {fileID: 1845949210}
   minigameThreeButton: {fileID: 972552239}
   minigameThreeUI: {fileID: 558637617}
   minigameThreeSlider: {fileID: 11062791}
-  minigameOneUIWasActive: 0
-  minigameOneAWasActive: 0
-  minigameOneDWasActive: 0
-  minigameTwoUIWasActive: 0
-  minigameTwoSliderWasActive: 0
-  activeSceneIs2D: 0
+  pauseMenu: {fileID: 0}
+  fishingBarProgress: 0
+  fishCaught: 0
+  winFishAmount: 3
   transitioning: 0
   transitionOpacity: 0
   transitionLerp: 0
-  fishingBarProgress: 0
-  fishCaught: 0
+  lastMinigamePlayed: 0
   minigameRNGNumber: 0
-  minigameOneProgress: 0
-  lastHitKey: 
+  minigameChooseTimer: 0
+  minigameOneUIWasActive: 0
+  minigameOneAWasActive: 0
+  minigameOneDWasActive: 0
   minigameOneTimer: 0
-  minigameTwoValue: 0
-  interactActive: 0
-  interactDisabled: 0
-  minigameTwoTimer: 0
+  minigameOneProgress: 0
+  minigameTwoUIWasActive: 0
+  minigameTwoSliderWasActive: 0
   minigameTwoWon: 0
   minigameTwoReverse: 0
-  winFishAmount: 3
-  lastMinigame: 0
+  minigameTwoValue: 0
+  minigameTwoTimer: 0
+  minigameThreeActive: 0
+  minigameThreeUIWasActive: 0
+  minigameThreeTimer: 0
   minigameThreeValue: 0
+  activeSceneIs2D: 0
+  lastHitKey: 
+  interactActive: 0
+  interactDisabled: 0
+  leftClickHeld: 0
+  gamePaused: 0
+  gameWasPausedDuringMinigameTimer: 0
   batteryPercentage: 0
   batteryDrain: 0
-  leftClickHeld: 0
-  minigameThreeActive: 0
-  minigameThreeTimer: 0
-  gamePaused: 0
 --- !u!1001 &430680500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1196,6 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 465992176}
   - component: {fileID: 465992175}
+  - component: {fileID: 465992177}
   m_Layer: 0
   m_Name: 'Bunyip Controller '
   m_TagString: Untagged
@@ -1224,8 +1229,7 @@ MonoBehaviour:
   - {fileID: 1130989853}
   - {fileID: 1756285460}
   currentMonsterIndex: 0
-  minTimeBetweenMoves: 3
-  maxTimeBetweenMoves: 9
+  timeBetweenMoves: 0
   fishingBackground: {fileID: 1582273869}
   flashlight: {fileID: 242952111}
   player: {fileID: 416954054}
@@ -1253,6 +1257,20 @@ Transform:
   - {fileID: 1756285464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &465992177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465992174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 35
+  m_MyAudioSource: {fileID: 597646228}
 --- !u!1001 &469867969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3038,7 +3056,7 @@ GameObject:
   - component: {fileID: 1040173984}
   - component: {fileID: 1040173983}
   m_Layer: 6
-  m_Name: Bunyip 3
+  m_Name: Bunyip 3 (Off Screen)
   m_TagString: Bunyip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

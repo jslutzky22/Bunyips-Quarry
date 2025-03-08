@@ -154,7 +154,7 @@ public class BunyipControl : MonoBehaviour
         }
     }
 
-    private void ResetMonsterPosition()
+    public void ResetMonsterPosition()
     {
         // Reset the monster to the starting position
         if (monsterPositions[currentMonsterIndex].activeSelf)
