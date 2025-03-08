@@ -1229,7 +1229,8 @@ MonoBehaviour:
   - {fileID: 1130989853}
   - {fileID: 1756285460}
   currentMonsterIndex: 0
-  timeBetweenMoves: 0
+  minTimeBetweenMoves: 3
+  maxTimeBetweenMoves: 9
   fishingBackground: {fileID: 1582273869}
   flashlight: {fileID: 242952111}
   player: {fileID: 416954054}
