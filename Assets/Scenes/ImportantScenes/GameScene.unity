@@ -1079,6 +1079,7 @@ MonoBehaviour:
   gameWasPausedDuringMinigameTimer: 0
   batteryPercentage: 0
   batteryDrain: 0
+  batteryDraining: 0
 --- !u!1001 &430680500
 PrefabInstance:
   m_ObjectHideFlags: 0
