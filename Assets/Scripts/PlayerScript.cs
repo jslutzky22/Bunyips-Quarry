@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
 public class PlayerScript : MonoBehaviour
 {
     [Header("InputActions")]
@@ -40,6 +42,8 @@ public class PlayerScript : MonoBehaviour
     private float fishingAudioTime;
     [SerializeField] private AudioSource forestAudio;
     private float forestAudioTime;
+    [SerializeField]
+    private UnityEngine.UI.Image batteryBar;
     //[SerializeField] private Slider batteryBar;
 
     [Header("Values")]
@@ -558,6 +562,7 @@ public class PlayerScript : MonoBehaviour
             batteryDraining = true;
             yield return new WaitForSecondsRealtime(0.1f);
             batteryPercentage -= batteryDrain;
+            batteryBar.fillAmount = batteryPercentage;
             //batteryBar.GetComponent<Slider>().value = batteryPercentage / 1;
         }
         batteryDraining = false;
