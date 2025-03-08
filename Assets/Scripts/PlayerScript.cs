@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction Interact;
     private InputAction LeftClick;
     private InputAction RightClick;
+    private InputAction Pause;
 
     [Header("GameObjects")]
     [SerializeField] private GameObject fishingCanvasBackground;
@@ -62,6 +65,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool leftClickHeld;
     [SerializeField] private bool minigameThreeActive;
     [SerializeField] private float minigameThreeTimer;
+    [SerializeField] private bool gamePaused;
 
     void Start()
     {
@@ -78,6 +82,7 @@ public class PlayerScript : MonoBehaviour
         Interact = PlayerControls.currentActionMap.FindAction("Interact");
         LeftClick = PlayerControls.currentActionMap.FindAction("LeftClick");
         RightClick = PlayerControls.currentActionMap.FindAction("RightClick");
+        Pause = PlayerControls.currentActionMap.FindAction("Pause");
 
         LeftClick.started += Handle_LeftClickStarted;
         LeftClick.canceled += Handle_LeftClickCanceled;
@@ -115,6 +120,29 @@ public class PlayerScript : MonoBehaviour
         if (!interactActive && !interactDisabled)
         {
             StartCoroutine(InteractPushed());
+        }
+    }
+
+    void OnPause()
+    {
+        if (!gamePaused && !transitioning)
+        {
+            gamePaused = true;
+            activeSceneIs2D = false;
+            transitioning = true;
+        }
+        if (gamePaused)
+        {
+            gamePaused = false;
+            if (!(!fishingCanvasBackground.activeSelf))
+            {
+                activeSceneIs2D = true;
+            }
+            else
+            {
+                activeSceneIs2D = false;
+            }
+            transitioning = true;
         }
     }
 
@@ -471,6 +499,30 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void ResumeGame()
+    {
+        gamePaused = false;
+        if (!(!fishingCanvasBackground.activeSelf))
+        {
+            activeSceneIs2D = true;
+        }
+        else
+        {
+            activeSceneIs2D = false;
+        }
+        transitioning = true;
+    }
+
+    public void BackToMenu() 
+    {
+        
+    }
+
+    public void QuitGame()
+    {
+        
+    }
+
     void FixedUpdate()
     {
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
@@ -497,7 +549,7 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(BatteryDecrease());
         }
 
-        if (!activeSceneIs2D)
+        if (!activeSceneIs2D && !transitioning)
         {
             fishingBarProgress -= 0.0000325f;
         }
