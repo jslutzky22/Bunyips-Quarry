@@ -9,7 +9,12 @@ public class BunyipControl : MonoBehaviour
 {
     public GameObject[] monsterPositions; // Array of positions/models the monster will move through
     public int currentMonsterIndex = 0; // Tracks the monster's current position
-    public float timeBetweenMoves = 5f; // Time in seconds between each move attempt
+
+    // Set min and max time for movement intervals
+    public float minTimeBetweenMoves = 3f; // Minimum time between moves
+    public float maxTimeBetweenMoves = 8f; // Maximum time between moves
+    private float timeBetweenMoves; // Random time between moves
+
     private float moveTimer = 0f; // Tracks time since last move
 
     public GameObject fishingBackground; // Reference to the UI Canvas to track if the monster should move
@@ -32,6 +37,9 @@ public class BunyipControl : MonoBehaviour
         mainCamera = Camera.main; // Cache the Main Camera at the start
         ResetMonsterPosition(); // Set the monster to the starting position
 
+        // Set the initial random time between moves
+        SetRandomTimeBetweenMoves();
+
         // Ensure the text is initially hidden
         fishEatenText.text = "";
 
@@ -40,22 +48,31 @@ public class BunyipControl : MonoBehaviour
 
     private void Update()
     {
-        // Only try moving the monster when the fishing UI is active (i.e., the player isn't looking)
+        // Only try moving the monster when the fishing UI is active and the player isn't transitioning
         if (fishingBackground.gameObject.activeInHierarchy && !player_script.gamePaused)
         {
             // Increment the timer
             moveTimer += Time.deltaTime;
 
-            // Try moving the monster after the timer reaches the timeBetweenMoves
+            // Try moving the monster after the timer reaches the randomly generated timeBetweenMoves
             if (moveTimer >= timeBetweenMoves)
             {
                 TryMoveMonster();
                 moveTimer = 0f; // Reset the timer
+
+                // Set a new random time between moves
+                SetRandomTimeBetweenMoves();
             }
         }
 
         // Check if the monster is hit by the flashlight's raycast
         CheckFlashlightHit();
+    }
+
+    private void SetRandomTimeBetweenMoves()
+    {
+        // Generate a random time between minTimeBetweenMoves and maxTimeBetweenMoves
+        timeBetweenMoves = Random.Range(minTimeBetweenMoves, maxTimeBetweenMoves);
     }
 
     private void TryMoveMonster()
