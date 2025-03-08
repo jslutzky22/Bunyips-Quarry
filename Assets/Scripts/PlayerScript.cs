@@ -42,7 +42,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool minigameTwoUIWasActive;
     [SerializeField] private bool minigameTwoSliderWasActive;
     [SerializeField] private bool activeSceneIs2D;
-    [SerializeField] private bool transitioning;
+    [SerializeField] public bool transitioning;
     [SerializeField] private float transitionOpacity; //is a number from 0-1
     [SerializeField] private float transitionLerp; //is a number from 0-1
     [SerializeField] private float fishingBarProgress;
