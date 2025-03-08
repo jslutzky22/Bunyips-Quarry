@@ -71,6 +71,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool gameWasPausedDuringMinigameTimer;
     [SerializeField] private float batteryPercentage;
     [SerializeField] private float batteryDrain;
+    [SerializeField] private bool batteryDraining;
 
     [HideInInspector] public static PlayerScript Instance;
 
@@ -254,6 +255,7 @@ public class PlayerScript : MonoBehaviour
         if (minigameOneProgress >= 20)
         {
             fishingBarProgress += 0.15f;
+            batteryPercentage += 0.01f * Random.Range(1, 3);
         }
         lastMinigamePlayed = 1;
         StartCoroutine(Minigames());
@@ -360,6 +362,7 @@ public class PlayerScript : MonoBehaviour
         if (minigameTwoWon)
         {
             fishingBarProgress += 0.15f;
+            batteryPercentage += 0.01f * Random.Range(1, 3);
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
@@ -389,6 +392,7 @@ public class PlayerScript : MonoBehaviour
         if (minigameThreeValue >= 1)
         {
             fishingBarProgress += 0.15f;
+            batteryPercentage += 0.01f * Random.Range(1, 3);
         }
         minigameThreeValue = 0;
         minigameThreeTimer = 0;
@@ -520,7 +524,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    IEnumerator BatteryDecrease()
+    public IEnumerator BatteryDecrease()
     {
         if (batteryDrain == 0)
         {
@@ -528,9 +532,11 @@ public class PlayerScript : MonoBehaviour
         }
         while (!activeSceneIs2D && !transitioning)
         {
+            batteryDraining = true;
             yield return new WaitForSecondsRealtime(0.1f);
             batteryPercentage -= batteryDrain;
         }
+        batteryDraining = false;
     }
 
     public void ResumeGame()
@@ -571,7 +577,6 @@ public class PlayerScript : MonoBehaviour
             {
                 fishCaught++;
                 fishingBarProgress -= 1f;
-                batteryPercentage += 0.01f * Random.Range(1, 3);
                 if (fishCaught >= winFishAmount)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
@@ -579,7 +584,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (!activeSceneIs2D)
+        if (!activeSceneIs2D && !batteryDraining)
         {
             StartCoroutine(BatteryDecrease());
         }

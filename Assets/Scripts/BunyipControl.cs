@@ -51,6 +51,7 @@ public class BunyipControl : MonoBehaviour
         // Only try moving the monster when the fishing UI is active and the player isn't transitioning
         if (fishingBackground.gameObject.activeInHierarchy && !player_script.gamePaused)
         {
+            player.BatteryDecrease();
             // Increment the timer
             moveTimer += Time.deltaTime;
 
