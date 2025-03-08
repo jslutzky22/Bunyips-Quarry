@@ -36,6 +36,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject minigameThreeUI;
     [SerializeField] private Slider minigameThreeSlider;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private AudioSource fishingAudio;
+    private float fishingAudioTime;
+    [SerializeField] private AudioSource forestAudio;
+    private float forestAudioTime;
 
     [Header("Values")]
     [SerializeField] private float fishingBarProgress;
@@ -102,6 +106,12 @@ public class PlayerScript : MonoBehaviour
         LeftClick.canceled += Handle_LeftClickCanceled;
 
         StartCoroutine(Minigames());
+
+
+        //MAKE FISHING SIDE START PLAYING
+        forestAudioTime = forestAudio.time;
+        forestAudio.Pause();
+        forestAudio.mute = true;
     }
 
     void OnTurnAround()
@@ -111,10 +121,22 @@ public class PlayerScript : MonoBehaviour
             if (!fishingCanvasBackground.activeSelf)
             {
                 StartCoroutine(TransitionToFishing());
+                forestAudioTime = forestAudio.time;
+                fishingAudio.UnPause();
+                fishingAudio.time = fishingAudioTime;
+                forestAudio.Pause();
+
+                //MAKE FISH SIDE AUDIO PLAY, RECORD FOREST SIDE AUDIO POINT, PAUSE FOREST SIDE AUDIO POINT 
             }
             else
             {
                 StartCoroutine(TransitionFromFishing());
+                fishingAudioTime = fishingAudio.time;
+                forestAudio.UnPause();
+                forestAudio.mute = false;
+                forestAudio.time = forestAudioTime;
+                fishingAudio.Pause();
+                //MAKE FOREST SIDE AUDIO PLAY, RECORD FOREST SIDE AUDIO POINT, FOREST FISH SIDE AUDIO POINT 
             }
         }
     }

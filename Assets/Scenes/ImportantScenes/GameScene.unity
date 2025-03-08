@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 197024261}
+  - component: {fileID: 197024262}
   - component: {fileID: 197024260}
   m_Layer: 6
   m_Name: Bunyip 5 (Off Screen)
@@ -364,6 +365,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &197024262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197024259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 0.7
+  m_MyAudioSource: {fileID: 197024260}
 --- !u!4 &205648060 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2238167670774948192, guid: 94e6e8c0644d8c549af7923829aa13aa, type: 3}
@@ -1015,7 +1030,7 @@ MonoBehaviour:
   castLength: 36
   maxDistance: 100
   shakeDuration: 1
-  shakeMagnitude: 0.1
+  shakeMagnitude: 1
   flickerDuration: 0.5
   flickerSpeed: 0.05
   cooldownDuration: 3
@@ -1046,6 +1061,8 @@ MonoBehaviour:
   minigameThreeUI: {fileID: 558637617}
   minigameThreeSlider: {fileID: 11062791}
   pauseMenu: {fileID: 0}
+  fishingAudio: {fileID: 626042390}
+  forestAudio: {fileID: 1401417722}
   fishingBarProgress: 0
   fishCaught: 0
   winFishAmount: 3
@@ -1201,7 +1218,6 @@ GameObject:
   m_Component:
   - component: {fileID: 465992176}
   - component: {fileID: 465992175}
-  - component: {fileID: 465992177}
   m_Layer: 0
   m_Name: 'Bunyip Controller '
   m_TagString: Untagged
@@ -1259,20 +1275,6 @@ Transform:
   - {fileID: 1756285464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &465992177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465992174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chanceOfSound: 35
-  m_MyAudioSource: {fileID: 597646228}
 --- !u!1001 &469867969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1632,6 +1634,7 @@ GameObject:
   - component: {fileID: 597646231}
   - component: {fileID: 597646230}
   - component: {fileID: 597646229}
+  - component: {fileID: 597646232}
   - component: {fileID: 597646228}
   m_Layer: 6
   m_Name: Bunyip 4
@@ -1824,6 +1827,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &597646232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597646227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 0.5
+  m_MyAudioSource: {fileID: 597646228}
 --- !u!1001 &617545938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1886,6 +1903,134 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3201200145545182794, guid: 5d53c092fd094a04e996c70c552b0400, type: 3}
   m_PrefabInstance: {fileID: 906259139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &626042388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 626042389}
+  - component: {fileID: 626042390}
+  m_Layer: 0
+  m_Name: FishingSide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &626042389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626042388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1149329863}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &626042390
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626042388}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d673b4949f48d8644b75004ba9d22089, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.319
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &674374367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,6 +2561,7 @@ GameObject:
   - component: {fileID: 844209249}
   - component: {fileID: 844209248}
   - component: {fileID: 844209247}
+  - component: {fileID: 844209250}
   - component: {fileID: 844209246}
   m_Layer: 6
   m_Name: Bunyip 2
@@ -2608,6 +2754,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &844209250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844209245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 0.1
+  m_MyAudioSource: {fileID: 844209246}
 --- !u!4 &851961440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2838291651862434120, guid: 52cc190fae5ff3846926646c00e5db8b, type: 3}
@@ -3056,6 +3216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1040173984}
+  - component: {fileID: 1040173985}
   - component: {fileID: 1040173983}
   m_Layer: 6
   m_Name: Bunyip 3 (Off Screen)
@@ -3175,6 +3336,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1040173985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040173982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 0.4
+  m_MyAudioSource: {fileID: 1040173983}
 --- !u!4 &1044393771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2838291651862434120, guid: 52cc190fae5ff3846926646c00e5db8b, type: 3}
@@ -3259,6 +3434,7 @@ GameObject:
   - component: {fileID: 1130989856}
   - component: {fileID: 1130989855}
   - component: {fileID: 1130989854}
+  - component: {fileID: 1130989858}
   m_Layer: 6
   m_Name: Bunyip 6
   m_TagString: Bunyip
@@ -3450,6 +3626,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -53.595}
+--- !u!114 &1130989858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130989853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 0.7
+  m_MyAudioSource: {fileID: 1130989854}
+--- !u!1 &1149329862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1149329863}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1149329863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149329862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 225.45023, y: 139.1821, z: -238.42577}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 626042389}
+  - {fileID: 1401417721}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1170277460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3734,6 +3957,134 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4028357392751601997, guid: 5edbf2b22446f1440bd3047f3646d7fa, type: 3}
   m_PrefabInstance: {fileID: 1982236075}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1401417720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1401417721}
+  - component: {fileID: 1401417722}
+  m_Layer: 0
+  m_Name: ForestSide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1401417721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401417720}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1149329863}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1401417722
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401417720}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ed5f4677efc15e44fa1bf2c8beb9d2f3, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.302
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1416241138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9030107851785680619, guid: abb3f7e035629dd409a1554f0b04136d, type: 3}
@@ -4444,6 +4795,7 @@ GameObject:
   - component: {fileID: 1756285463}
   - component: {fileID: 1756285462}
   - component: {fileID: 1756285461}
+  - component: {fileID: 1756285465}
   m_Layer: 6
   m_Name: Bunyip 7
   m_TagString: Bunyip
@@ -4635,6 +4987,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 465992176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1756285465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756285460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b55cfa92b94374db5e7983ec68b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceOfSound: 1
+  m_MyAudioSource: {fileID: 1756285461}
 --- !u!1001 &1764275891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5587,3 +5953,4 @@ SceneRoots:
   - {fileID: 465992176}
   - {fileID: 242952112}
   - {fileID: 864457607}
+  - {fileID: 1149329863}
