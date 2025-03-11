@@ -42,8 +42,8 @@ public class PlayerScript : MonoBehaviour
     private float fishingAudioTime;
     [SerializeField] private AudioSource forestAudio;
     private float forestAudioTime;
-    [SerializeField]
-    private UnityEngine.UI.Image batteryBar;
+    [SerializeField] private UnityEngine.UI.Image batteryBar;
+    public GameObject fishSprite;
  
     AudioSource audioSource;
 
@@ -88,7 +88,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip lightClick;
     [SerializeField] private AudioClip offClick;
-    [SerializeField] private AudioClip minigameSucess;
+    [SerializeField] private AudioClip minigameSuccess;
     [SerializeField] private AudioClip reelIn;
     [SerializeField] private AudioClip fishSplash;
     [SerializeField] private AudioClip transitionSound;
@@ -302,7 +302,7 @@ public class PlayerScript : MonoBehaviour
             batteryPercentage += 0.01f * Random.Range(1, 3);
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
-            audioSource.PlayOneShot(minigameSucess, 1F);
+            audioSource.PlayOneShot(minigameSuccess, 1F);
         }
         lastMinigamePlayed = 1;
         StartCoroutine(Minigames());
@@ -412,7 +412,7 @@ public class PlayerScript : MonoBehaviour
             batteryPercentage += 0.01f * Random.Range(1, 3);
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
-            audioSource.PlayOneShot(minigameSucess, 1F);
+            audioSource.PlayOneShot(minigameSuccess, 1F);
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
@@ -445,7 +445,7 @@ public class PlayerScript : MonoBehaviour
             batteryPercentage += 0.01f * Random.Range(1, 3);
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
-            audioSource.PlayOneShot(minigameSucess, 1F);
+            audioSource.PlayOneShot(minigameSuccess, 1F);
         }
         minigameThreeValue = 0;
         minigameThreeTimer = 0;
@@ -465,14 +465,14 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity += 0.02f;
+            transitionOpacity += 0.04f;
         }
         transitionOpacity = 1f;
         while (transitionLerp < 1)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionLerp += 0.02f;
+            transitionLerp += 0.04f;
         }
         transitionLerp = 1f;
         fishingCanvasBackground.SetActive(false);
@@ -506,7 +506,7 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity -= 0.02f;
+            transitionOpacity -= 0.04f;
         }
         transitionOpacity = 0f;
         transition.SetActive(false);
@@ -584,14 +584,14 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity += 0.02f;
+            transitionOpacity += 0.04f;
         }
         transitionOpacity = 1f;
         while (transitionLerp > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionLerp -= 0.02f;
+            transitionLerp -= 0.04f;
         }
         transitionLerp = 0f;
         fishingCanvasBackground.SetActive(true);
@@ -624,7 +624,7 @@ public class PlayerScript : MonoBehaviour
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
             yield return new WaitForSecondsRealtime(0.01f);
-            transitionOpacity -= 0.02f;
+            transitionOpacity -= 0.04f;
         }
         transitionOpacity = 0f;
         transition.SetActive(false);
@@ -682,6 +682,13 @@ public class PlayerScript : MonoBehaviour
         Application.Quit();
     }
 
+    IEnumerator FishSpriteShow()
+    {
+        fishSprite.SetActive(true);
+        yield return new WaitForSecondsRealtime(1f);
+        fishSprite.SetActive(false);
+    }
+
     void FixedUpdate()
     {
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
@@ -694,6 +701,7 @@ public class PlayerScript : MonoBehaviour
             if (fishingBarProgress >= 1f)
             {
                 fishCaught++;
+                StartCoroutine(FishSpriteShow());
                 fishingBarProgress -= 1f;
                 audioSource.PlayOneShot(fishSplash, 1F);
                 if (fishCaught >= winFishAmount)

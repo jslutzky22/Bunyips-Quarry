@@ -34,7 +34,6 @@ public class BunyipControl : MonoBehaviour
     [SerializeField] private GameObject bunyipAttack;
     [SerializeField] private GameObject redScreen;
     [SerializeField] private float redScreenLerp;
-    [SerializeField] private GameObject fishSprite;
     PlayerScript player_script;
 
     private void Start()
@@ -130,13 +129,13 @@ public class BunyipControl : MonoBehaviour
             redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
             if (player_script.fishCaught > 0)
             {
-                fishSprite.SetActive(true);
+                player_script.fishSprite.SetActive(true);
             }
             yield return new WaitForSecondsRealtime(0.5f);
             
             if (player_script.fishCaught > 0)
             {
-                fishSprite.SetActive(false);
+                player_script.fishSprite.SetActive(false);
                 yield return new WaitForSecondsRealtime(0.2f);
                 bunyipAttack.SetActive(false);
                 while (redScreenLerp > 0)
