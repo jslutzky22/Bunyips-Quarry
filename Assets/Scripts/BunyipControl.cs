@@ -29,7 +29,12 @@ public class BunyipControl : MonoBehaviour
     private float flashlightHoldTimer = 0f; // Timer to track how long the flashlight has been shining on the Bunyip
 
     private Camera mainCamera; // Reference to the main camera
-
+    
+    [Header("Luke's Stuff")]
+    [SerializeField] private GameObject bunyipAttack;
+    [SerializeField] private GameObject redScreen;
+    [SerializeField] private float redScreenLerp;
+    [SerializeField] private GameObject fishSprite;
     PlayerScript player_script;
 
     private void Start()
@@ -51,7 +56,7 @@ public class BunyipControl : MonoBehaviour
         // Only try moving the monster when the fishing UI is active and the player isn't transitioning
         if (fishingBackground.gameObject.activeInHierarchy && !player_script.gamePaused)
         {
-            player.BatteryDecrease();
+            player_script.BatteryDecrease();
             // Increment the timer
             moveTimer += Time.deltaTime;
 
@@ -101,26 +106,79 @@ public class BunyipControl : MonoBehaviour
         currentMonsterIndex++;
         monsterPositions[currentMonsterIndex].SetActive(true);
     }
-
+    
     private void CheckPlayerFish()
     {
-        if (player.fishCaught <= 0)
-        {
-            // If player has no fish, the monster kills the player (trigger game over or restart)
-            Debug.Log("The monster killed the player!");
-            SceneManager.LoadScene("LoseScene"); // Load game over scene
-        }
-        else
-        {
-            // If player has fish, the monster takes 1 fish and the player survives
-            player.fishCaught--; // Take 1 fish from the player
-            Debug.Log("The monster took 1 fish! Remaining fish: " + player.fishCaught);
+        StartCoroutine(BunyipTurnAround());
+    }
 
-            // Show the message that a fish was eaten
-            StartCoroutine(ShowFishEatenMessage());
+    IEnumerator BunyipTurnAround()
+    {
+        if (player_script.activeSceneIs2D)
+        {
+            StartCoroutine(player_script.TransitionForAttack());
+            yield return new WaitForSecondsRealtime(0.3f);
+            bunyipAttack.SetActive(true);
+            yield return new WaitForSecondsRealtime(2f);
+            while (redScreenLerp < 0.45)
+            {
+                redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+                yield return new WaitForSecondsRealtime(0.02f);
+                redScreenLerp += 0.02f;
+            }
+            redScreenLerp = 0.44f;
+            redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+            if (player_script.fishCaught > 0)
+            {
+                fishSprite.SetActive(true);
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
+            
+            if (player_script.fishCaught > 0)
+            {
+                fishSprite.SetActive(false);
+                yield return new WaitForSecondsRealtime(0.2f);
+                bunyipAttack.SetActive(false);
+                while (redScreenLerp > 0)
+                {
+                    redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+                    yield return new WaitForSecondsRealtime(0.02f);
+                    redScreenLerp -= 0.02f;
+                }
+                redScreenLerp = 0f;
+                redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+            }
+            if (player_script.fishCaught <= 0)
+            {
+                fishEatenText.text = "No fish left to save you...";
+                while (redScreenLerp < 1)
+                {
+                    redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+                    yield return new WaitForSecondsRealtime(0.02f);
+                    redScreenLerp += 0.01f;
+                }
+                redScreenLerp = 1f;
+                redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+            }
 
-            // Reset the monster to the starting position after taking a fish
-            ResetMonsterPosition();
+            if (player_script.fishCaught <= 0)
+            {
+                // If player has no fish, the monster kills the player (trigger game over or restart)
+                Debug.Log("The monster killed the player!");
+                SceneManager.LoadScene("LoseScene"); // Load game over scene
+            }
+            else
+            {
+                // If player has fish, the monster takes 1 fish and the player survives
+                player_script.fishCaught--; // Take 1 fish from the player
+                Debug.Log("The monster took 1 fish! Remaining fish: " + player_script.fishCaught);
+
+                // Show the message that a fish was eaten
+                StartCoroutine(ShowFishEatenMessage());
+
+                // Reset the monster to the starting position after taking a fish
+                ResetMonsterPosition();
+            }
         }
     }
 

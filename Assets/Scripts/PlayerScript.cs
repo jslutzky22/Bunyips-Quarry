@@ -74,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool minigameThreeUIWasActive;
     [SerializeField] private float minigameThreeTimer;
     [SerializeField] private float minigameThreeValue;
-    [SerializeField] private bool activeSceneIs2D;
+    [SerializeField] public bool activeSceneIs2D;
     [SerializeField] private string lastHitKey;
     [SerializeField] private bool interactActive;
     [SerializeField] private bool interactDisabled;
@@ -510,8 +510,67 @@ public class PlayerScript : MonoBehaviour
         }
         transitionOpacity = 0f;
         transition.SetActive(false);
+        transitioning = false;   
+    }
+
+    public IEnumerator TransitionForAttack()
+    {
+        activeSceneIs2D = false;
+        transitioning = true;
+        transitionLerp = 0f;
+        transitionOpacity = 0f;
+        transition.SetActive(true);
+
+        while (transitionOpacity < 1)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(255, 255, 255, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity += 0.04f;
+        }
+        transitionOpacity = 1f;
+        while (transitionLerp < 1)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = Color.Lerp(Color.white, Color.black, transitionLerp);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionLerp += 0.04f;
+        }
+        transitionLerp = 1f;
+        fishingCanvasBackground.SetActive(false);
+        audioSource.PlayOneShot(lightClick, 1F);
+        if (!(!minigameOneUI.activeSelf))
+        {
+            minigameOneUI.SetActive(false);
+            minigameOneUIWasActive = true;
+        }
+        if (!(!minigameOneA.activeSelf))
+        {
+            minigameOneA.SetActive(false);
+            minigameOneAWasActive = true;
+        }
+        if (!(!minigameOneD.activeSelf))
+        {
+            minigameOneD.SetActive(false);
+            minigameOneDWasActive = true;
+        }
+        if (!(!minigameTwoUI.activeSelf))
+        {
+            minigameTwoUI.SetActive(false);
+            minigameTwoUIWasActive = true;
+        }
+        if (!(!minigameThreeUI.activeSelf))
+        {
+            minigameThreeUI.SetActive(false);
+            minigameThreeUIWasActive = true;
+        }
+        while (transitionOpacity > 0)
+        {
+            transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
+            yield return new WaitForSecondsRealtime(0.01f);
+            transitionOpacity -= 0.04f;
+        }
+        transitionOpacity = 0f;
+        transition.SetActive(false);
         transitioning = false;
-        
     }
 
     IEnumerator TransitionToFishing()
