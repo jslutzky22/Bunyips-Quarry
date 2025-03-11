@@ -34,6 +34,7 @@ public class BunyipControl : MonoBehaviour
     [SerializeField] private GameObject bunyipAttack;
     [SerializeField] private GameObject redScreen;
     [SerializeField] private float redScreenLerp;
+    [SerializeField] private GameObject fishSprite;
     PlayerScript player_script;
 
     private void Start()
@@ -116,10 +117,7 @@ public class BunyipControl : MonoBehaviour
         if (player_script.activeSceneIs2D)
         {
             StartCoroutine(player_script.TransitionForAttack());
-            if (player_script.fishCaught > 0)
-            {
-                //fish set active true
-            }
+            yield return new WaitForSecondsRealtime(0.3f);
             bunyipAttack.SetActive(true);
             yield return new WaitForSecondsRealtime(2f);
             while (redScreenLerp < 0.45)
@@ -129,12 +127,18 @@ public class BunyipControl : MonoBehaviour
                 redScreenLerp += 0.02f;
             }
             redScreenLerp = 0.44f;
+            redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
+            if (player_script.fishCaught > 0)
+            {
+                fishSprite.SetActive(true);
+            }
             yield return new WaitForSecondsRealtime(0.5f);
             
             if (player_script.fishCaught > 0)
             {
+                fishSprite.SetActive(false);
+                yield return new WaitForSecondsRealtime(0.2f);
                 bunyipAttack.SetActive(false);
-                //fish set active false
                 while (redScreenLerp > 0)
                 {
                     redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
@@ -142,6 +146,7 @@ public class BunyipControl : MonoBehaviour
                     redScreenLerp -= 0.02f;
                 }
                 redScreenLerp = 0f;
+                redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
             }
             if (player_script.fishCaught <= 0)
             {
@@ -153,6 +158,7 @@ public class BunyipControl : MonoBehaviour
                     redScreenLerp += 0.01f;
                 }
                 redScreenLerp = 1f;
+                redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
             }
 
             if (player_script.fishCaught <= 0)
