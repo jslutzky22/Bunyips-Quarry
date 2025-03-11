@@ -12,9 +12,13 @@ public class FlashlightController : MonoBehaviour
     public float castLength = 5f; // Length of the capsule cast
     public float maxDistance = 100f; // Maximum distance of the flashlight cast
 
+    public float batteryPercentage = 1f; // Battery level of the flashlight (1 = 100%)
+    public float batteryDrainRate = 0.01f; // Rate at which the battery drains per second
+
     private bool isShaking = false; // Track if the flashlight is currently shaking
     private bool isFlickering = false; // To track if the flashlight is flickering
     private bool isOnCooldown = false; // Track if the flashlight is on cooldown
+    private bool flashlightActive = true; // Tracks if the flashlight is active
 
     public float shakeDuration = 0.5f; // Duration of the shake effect
     public float shakeMagnitude = 0.1f; // How much the flashlight shakes
@@ -34,17 +38,41 @@ public class FlashlightController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Ensure the flashlight follows the mouse movement during any state (flicker, shake, or normal)
-        FollowMouseWithFlashlight();
-
-        // Check if the UI Canvas is active, and disable flashlight accordingly
-        if (fishingBackground.gameObject.activeInHierarchy)
+        // Drain battery when flashlight is active
+        if (flashlightActive && !fishingBackground.gameObject.activeInHierarchy)
         {
-            flashlight.enabled = false; // Turn off flashlight when UI is active
+            DrainBattery();
         }
-        else if (!isShaking && !isFlickering) // Ensure flashlight remains active when not shaking or flickering
+
+        // Ensure the flashlight follows the mouse movement during any state (flicker, shake, or normal)
+        if (flashlightActive && !isFlickering)
         {
-            flashlight.enabled = true; // Keep the flashlight enabled
+            FollowMouseWithFlashlight();
+        }
+
+        // Disable the flashlight and capsule cast if the battery runs out or fishing background is active
+        if (batteryPercentage <= 0f || fishingBackground.gameObject.activeInHierarchy)
+        {
+            flashlight.enabled = false;
+            flashlightActive = false;
+        }
+        else if (!isShaking && !isFlickering && !fishingBackground.gameObject.activeInHierarchy)
+        {
+            flashlight.enabled = true;
+            flashlightActive = true;
+        }
+    }
+
+    private void DrainBattery()
+    {
+        if (batteryPercentage > 0f)
+        {
+            batteryPercentage -= batteryDrainRate * Time.deltaTime;
+        }
+        else
+        {
+            batteryPercentage = 0f; // Ensure battery doesn't go negative
+            flashlightActive = false; // Turn off flashlight when battery is empty
         }
     }
 
@@ -60,14 +88,20 @@ public class FlashlightController : MonoBehaviour
             // Make the flashlight point towards the hit point, always update the rotation
             Vector3 directionToLook = hitInfo.point - flashlight.transform.position;
             flashlight.transform.rotation = Quaternion.LookRotation(directionToLook);
-        }
 
-        // Perform the capsule cast for collision detection
-        PerformCapsuleCheck();
+            // Perform the capsule cast for collision detection only if flashlight is active
+            if (flashlight.enabled)
+            {
+                PerformCapsuleCheck();
+            }
+        }
     }
 
     private void PerformCapsuleCheck()
     {
+        // If the flashlight is not active or fishing background is on, skip the capsule cast
+        if (!flashlight.enabled) return;
+
         // Calculate capsule cast points (start and end points of the capsule)
         Vector3 startPoint = flashlight.transform.position;
         Vector3 endPoint = flashlight.transform.position + flashlight.transform.forward * castLength;
@@ -93,8 +127,6 @@ public class FlashlightController : MonoBehaviour
     private IEnumerator ShakeAndFlickerFlashlight()
     {
         isShaking = true; // Set the shaking state to true
-        
-
         Vector3 originalPosition = flashlight.transform.localPosition; // Store the original position
         float elapsedTime = 0f;
 
@@ -146,8 +178,8 @@ public class FlashlightController : MonoBehaviour
             flickerElapsedTime += flickerSpeed;
         }
 
-        // Ensure the flashlight is turned on after flickering ends
-        flashlight.enabled = true;
+        // Ensure the flashlight is turned on after flickering ends, only if the battery is not empty
+        flashlight.enabled = batteryPercentage > 0f;
         isFlickering = false; // Stop flickering
     }
 
