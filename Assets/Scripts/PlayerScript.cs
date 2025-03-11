@@ -17,13 +17,15 @@ public class PlayerScript : MonoBehaviour
     [Header("InputActions")]
     public PlayerInput PlayerControls;
     private InputAction TurnAround;
+    private InputAction Up;
     private InputAction Left;
+    private InputAction Down;
     private InputAction Right;
     private InputAction Interact;
     private InputAction LeftClick;
     private InputAction RightClick;
     private InputAction Pause;
-
+    
     [Header("GameObjects")]
     [SerializeField] private GameObject fishingCanvasBackground;
     [SerializeField] private TMP_Text fishCaughtText;
@@ -112,7 +114,9 @@ public class PlayerScript : MonoBehaviour
         fishCaught = 0;
         fishingBarProgress = 0;
         TurnAround = PlayerControls.currentActionMap.FindAction("TurnAround");
+        Up = PlayerControls.currentActionMap.FindAction("Up");
         Left = PlayerControls.currentActionMap.FindAction("Left");
+        Down = PlayerControls.currentActionMap.FindAction("Down");
         Right = PlayerControls.currentActionMap.FindAction("Right");
         Interact = PlayerControls.currentActionMap.FindAction("Interact");
         LeftClick = PlayerControls.currentActionMap.FindAction("LeftClick");
@@ -163,9 +167,19 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void OnUp()
+    {
+        lastHitKey = "W";
+    }
+
     void OnLeft()
     {
         lastHitKey = "A";
+    }
+
+    void OnDown()
+    {
+        lastHitKey = "S";
     }
 
     void OnRight()
@@ -452,6 +466,311 @@ public class PlayerScript : MonoBehaviour
         lastMinigamePlayed = 3;
         StartCoroutine(Minigames());
     }
+
+    /*
+    IEnumerator MinigameFour()
+    {
+        minigameFourProgress = 0;
+        minigameFourUI.SetActive(true);
+        lastHitKey = "none";
+        minigameFourInput1 = Random.Range(1, 5);
+        minigameFourInput2 = Random.Range(1, 5);
+        minigameFourInput3 = Random.Range(1, 5);
+        minigameFourInput4 = Random.Range(1, 5);
+        while (minigameFourProgress < 4)
+        {
+            yield return new WaitForSecondsRealtime(0.01f);
+            if (activeSceneIs2D)
+            {
+                if (MinigameFourProgress == 0)
+                {
+                    if (minigameFourInput1 = 1)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "W")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput1 = 2)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "A")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput1 = 3)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "S")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput1 = 4)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "D")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                }
+                if (MinigameFourProgress == 1)
+                {
+                    if (minigameFourInput2 = 1)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "W")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput2 = 2)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "A")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput2 = 3)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "S")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput2 = 4)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "D")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                }
+                if (MinigameFourProgress == 2)
+                {
+                    if (minigameFourInput3 = 1)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "W")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput3 = 2)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "A")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput3 = 3)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "S")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput3 = 4)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "D")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                }
+                if (MinigameFourProgress == 3)
+                {
+                    if (minigameFourInput4 = 1)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "W")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput4 = 2)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "A")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput4 = 3)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "S")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                    if (minigameFourInput4 = 4)
+                    {
+                        if (lastHitKey == "none")
+                        {
+
+                        }
+                        if (lastHitKey == "D")
+                        {
+                            minigameFourProgress++;
+                            lastHitKey = "none";
+                        }
+                        else
+                        {
+                            minigameFourProgress = 0;
+                        }
+                    }
+                }
+                minigameFourTimer += 0.01f;
+                if (minigameFourTimer > 10)
+                {
+                    minigameFourTimer = 0;
+                    break;
+                }
+            }
+        }
+        minigameFourUI.SetActive(false);
+        if (minigameFourProgress >= 4)
+        {
+            fishingBarProgress += 0.15f;
+            batteryPercentage += 0.01f * Random.Range(1, 3);
+            batteryBar.fillAmount = batteryPercentage;
+            audioSource.PlayOneShot(reelIn, 1F);
+            audioSource.PlayOneShot(minigameSuccess, 1F);
+        }
+        lastMinigamePlayed = 4;
+        StartCoroutine(Minigames());
+    }
+    */
 
     IEnumerator TransitionFromFishing()
     {
