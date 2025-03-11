@@ -646,7 +646,7 @@ public class PlayerScript : MonoBehaviour
         {
             batteryDrain = 0.001f;
         }
-        while (!activeSceneIs2D && !transitioning)
+        while (!activeSceneIs2D && !transitioning && batteryPercentage > 0)
         {
             batteryDraining = true;
             yield return new WaitForSecondsRealtime(0.1f);
