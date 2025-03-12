@@ -55,7 +55,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float fishingBarProgress;
     [SerializeField] public int fishCaught;
     [SerializeField] private float winFishAmount; //How Many Fish to win
-    [SerializeField] private bool transitioning;
+    [SerializeField] public bool transitioning;
     [SerializeField] private float transitionOpacity; //is a number from 0-1
     [SerializeField] private float transitionLerp; //is a number from 0-1
     [SerializeField] private int lastMinigamePlayed;
