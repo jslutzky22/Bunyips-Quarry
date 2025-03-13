@@ -12,8 +12,6 @@ public class FlashlightController : MonoBehaviour
     public float castLength = 5f; // Length of the capsule cast
     public float maxDistance = 100f; // Maximum distance of the flashlight cast
 
-    public float batteryPercentage = 1f; // Battery level of the flashlight (1 = 100%)
-    public float batteryDrainRate = 0.01f; // Rate at which the battery drains per second
 
     private bool isShaking = false; // Track if the flashlight is currently shaking
     private bool isFlickering = false; // To track if the flashlight is flickering
@@ -27,6 +25,7 @@ public class FlashlightController : MonoBehaviour
     public float cooldownDuration = 3f; // Cooldown time between flickers
 
     public BunyipControl bunyipController; // Reference to the Bunyip controller script
+    public PlayerScript player; // Reference to track game pause state
     AudioSource audioSource;
     [SerializeField] private AudioClip jumpscareStinger;
 
@@ -38,11 +37,15 @@ public class FlashlightController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Drain battery when flashlight is active
-        if (flashlightActive && !fishingBackground.gameObject.activeInHierarchy)
+        // Check if game is paused or the fishing background is active
+        if (player.gamePaused || fishingBackground.gameObject.activeInHierarchy)
         {
-            DrainBattery();
+            flashlight.enabled = false;
+            flashlightActive = false;
+            return; // Skip further updates if paused or in fishing mode
         }
+
+        // Drain battery when flashlight is active
 
         // Ensure the flashlight follows the mouse movement during any state (flicker, shake, or normal)
         if (flashlightActive && !isFlickering)
@@ -50,31 +53,21 @@ public class FlashlightController : MonoBehaviour
             FollowMouseWithFlashlight();
         }
 
-        // Disable the flashlight and capsule cast if the battery runs out or fishing background is active
-        if (batteryPercentage <= 0f || fishingBackground.gameObject.activeInHierarchy)
+        // Disable the flashlight and capsule cast if the battery runs out
+        if (player.batteryPercentage <= 0f)
         {
             flashlight.enabled = false;
             flashlightActive = false;
+            Debug.Log("Out of Battery");
         }
-        else if (!isShaking && !isFlickering && !fishingBackground.gameObject.activeInHierarchy)
+        else if (!isShaking && !isFlickering && player.batteryPercentage > 0)
         {
             flashlight.enabled = true;
             flashlightActive = true;
+
         }
     }
 
-    private void DrainBattery()
-    {
-        if (batteryPercentage > 0f)
-        {
-            batteryPercentage -= batteryDrainRate * Time.deltaTime;
-        }
-        else
-        {
-            batteryPercentage = 0f; // Ensure battery doesn't go negative
-            flashlightActive = false; // Turn off flashlight when battery is empty
-        }
-    }
 
     private void FollowMouseWithFlashlight()
     {
@@ -99,7 +92,7 @@ public class FlashlightController : MonoBehaviour
 
     private void PerformCapsuleCheck()
     {
-        // If the flashlight is not active or fishing background is on, skip the capsule cast
+        // If the flashlight is not active, skip the capsule cast
         if (!flashlight.enabled) return;
 
         // Calculate capsule cast points (start and end points of the capsule)
@@ -179,7 +172,7 @@ public class FlashlightController : MonoBehaviour
         }
 
         // Ensure the flashlight is turned on after flickering ends, only if the battery is not empty
-        flashlight.enabled = batteryPercentage > 0f;
+        flashlight.enabled = player.batteryPercentage > 0f;
         isFlickering = false; // Stop flickering
     }
 
