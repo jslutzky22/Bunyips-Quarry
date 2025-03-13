@@ -73,7 +73,7 @@ public class BunyipControl : MonoBehaviour
             }
         }
 
-        if (!beingAttacked)
+        if (!beingAttacked && !player_script.transitioning)
         {
             // Check if the monster is hit by the flashlight's raycast
             CheckFlashlightHit();
