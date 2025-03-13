@@ -1139,10 +1139,11 @@ MonoBehaviour:
   minigameThreeButton: {fileID: 972552239}
   minigameThreeUI: {fileID: 558637617}
   minigameThreeSlider: {fileID: 11062791}
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 1552667152927622059}
   fishingAudio: {fileID: 626042390}
   forestAudio: {fileID: 1401417722}
   batteryBar: {fileID: 885494316}
+  fishSprite: {fileID: 680614425}
   fishingBarProgress: 0
   fishCaught: 0
   winFishAmount: 3
@@ -1179,9 +1180,9 @@ MonoBehaviour:
   batteryDraining: 0
   lightClick: {fileID: 8300000, guid: 89f045a1f810f9a4ba744f4326506e00, type: 3}
   offClick: {fileID: 8300000, guid: 76cbb624cb4e9e149a88d3ea897b0ed4, type: 3}
-  minigameSucess: {fileID: 8300000, guid: eb2f4f0e9f14bd04bb3131ce03fcdd9c, type: 3}
+  minigameSuccess: {fileID: 8300000, guid: eb2f4f0e9f14bd04bb3131ce03fcdd9c, type: 3}
   reelIn: {fileID: 8300000, guid: 59deaf6eda435b444b27dcb487c4a1b4, type: 3}
-  fishSplash: {fileID: 8300000, guid: 19462ed1d9e6ca24fb351755136a65ab, type: 3}
+  fishSplash: {fileID: 8300000, guid: 58de652487542b34b8c3281e6e29b288, type: 3}
   transitionSound: {fileID: 8300000, guid: 363bb2cbc3ed1d84f824a0afe10e66f9, type: 3}
 --- !u!82 &416954055
 AudioSource:
@@ -1438,7 +1439,6 @@ MonoBehaviour:
   bunyipAttack: {fileID: 1213974658}
   redScreen: {fileID: 675170836}
   redScreenLerp: 0
-  fishSprite: {fileID: 680614425}
 --- !u!4 &465992176
 Transform:
   m_ObjectHideFlags: 0
@@ -2871,8 +2871,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 680614426}
   - {fileID: 267960452}
+  - {fileID: 680614426}
   - {fileID: 1954301742}
   - {fileID: 283670009}
   - {fileID: 430680501}
@@ -6328,6 +6328,11 @@ PrefabInstance:
 --- !u!224 &1552667152927622058 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6044009282852509173, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
+  m_PrefabInstance: {fileID: 1552667152927622057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1552667152927622059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4425831969463210052, guid: 323a080a113247444b5f95c52c16f17e, type: 3}
   m_PrefabInstance: {fileID: 1552667152927622057}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1946554396220595300

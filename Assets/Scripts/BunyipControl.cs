@@ -34,7 +34,7 @@ public class BunyipControl : MonoBehaviour
     [SerializeField] private GameObject bunyipAttack;
     [SerializeField] private GameObject redScreen;
     [SerializeField] private float redScreenLerp;
-    [SerializeField] private GameObject fishSprite;
+    [SerializeField] private bool beingAttacked;
     PlayerScript player_script;
 
     private void Start()
@@ -54,7 +54,7 @@ public class BunyipControl : MonoBehaviour
     private void Update()
     {
         // Only try moving the monster when the fishing UI is active and the player isn't transitioning
-        if (fishingBackground.gameObject.activeInHierarchy && !player_script.gamePaused)
+        if (player_script.activeSceneIs2D && !player_script.gamePaused && !player_script.transitioning)
         {
             player_script.BatteryDecrease();
             // Increment the timer
@@ -73,8 +73,11 @@ public class BunyipControl : MonoBehaviour
             }
         }
 
-        // Check if the monster is hit by the flashlight's raycast
-        CheckFlashlightHit();
+        if (!beingAttacked)
+        {
+            // Check if the monster is hit by the flashlight's raycast
+            CheckFlashlightHit();
+        }
     }
 
     private void SetRandomTimeBetweenMoves()
@@ -109,6 +112,7 @@ public class BunyipControl : MonoBehaviour
     
     private void CheckPlayerFish()
     {
+        monsterPositions[currentMonsterIndex].SetActive(false);
         StartCoroutine(BunyipTurnAround());
     }
 
@@ -116,6 +120,7 @@ public class BunyipControl : MonoBehaviour
     {
         if (player_script.activeSceneIs2D)
         {
+            beingAttacked = true;
             StartCoroutine(player_script.TransitionForAttack());
             yield return new WaitForSecondsRealtime(0.3f);
             bunyipAttack.SetActive(true);
@@ -130,13 +135,13 @@ public class BunyipControl : MonoBehaviour
             redScreen.GetComponent<UnityEngine.UI.Image>().color = new Vector4(180, 0, 0, redScreenLerp);
             if (player_script.fishCaught > 0)
             {
-                fishSprite.SetActive(true);
+                player_script.fishSprite.SetActive(true);
             }
             yield return new WaitForSecondsRealtime(0.5f);
             
             if (player_script.fishCaught > 0)
             {
-                fishSprite.SetActive(false);
+                player_script.fishSprite.SetActive(false);
                 yield return new WaitForSecondsRealtime(0.2f);
                 bunyipAttack.SetActive(false);
                 while (redScreenLerp > 0)
@@ -178,6 +183,7 @@ public class BunyipControl : MonoBehaviour
 
                 // Reset the monster to the starting position after taking a fish
                 ResetMonsterPosition();
+                beingAttacked = false;
             }
         }
     }
