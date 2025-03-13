@@ -24,9 +24,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Up2",
+                    "type": "Button",
+                    "id": "89e427ce-9cbd-4698-9330-b013f36b1ceb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Left",
                     "type": "Button",
                     "id": "cfe0227c-95a3-4774-b358-65718cd62850",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Left2",
+                    "type": "Button",
+                    "id": "da6290ae-761d-42a9-b65f-25f91946da69",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -42,9 +60,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Down2",
+                    "type": "Button",
+                    "id": "cd1bc785-7847-4138-b461-e44ec75334aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Right",
                     "type": "Button",
                     "id": "c0942913-f528-4ff8-a427-0d4dac99ab0d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right2",
+                    "type": "Button",
+                    "id": "990a21d5-9e38-49aa-b168-18566ce7a4f2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -112,30 +148,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a1cd94a6-6321-4809-aecc-7e1ba78268ea",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e8753e36-8b7d-4c79-9303-078a614d4cdd",
                     "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Right",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be1e1a1c-9d04-4af7-b103-9cf455472e17",
-                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -212,18 +226,7 @@
                 {
                     "name": "",
                     "id": "c0ea4e0f-5667-4f75-a101-e72dd9c9a21c",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Down",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "84daa7e2-1978-40d6-b529-8e5849ec648e",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -244,12 +247,45 @@
                 },
                 {
                     "name": "",
-                    "id": "62fb7300-8db6-4a18-ad14-2c2e5f33a44d",
+                    "id": "6f3a6602-f7e0-49b5-b63a-09fd1a765180",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Up",
+                    "action": "Up2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6deb4e90-b242-4e82-b265-61cc5e2f8137",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b92745ef-85ae-4e6c-b951-7fd740ce0af2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40762959-a519-4fa2-a670-7ecb7c877dc2",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
