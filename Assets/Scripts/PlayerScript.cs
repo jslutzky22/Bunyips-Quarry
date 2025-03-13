@@ -56,17 +56,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject minigameFourInput3Object;
     [SerializeField] private GameObject minigameFourInput4Object;
 
-
-    AudioSource audioSource;
-
-    //[SerializeField] private Slider batteryBar;
-
-    [Header("Values")]
-    private float fishingBarProgress;
+    [Header("EditorValues")]
     [SerializeField] private float fishingBarGain;
-    public int fishCaught;
+    private float fishingBarProgress;
+    [SerializeField] private float fishingBarPassiveGain;
     [SerializeField] private float winFishAmount; //How Many Fish to win
-    public bool transitioning;
     private float transitionOpacity; //is a number from 0-1
     private float transitionLerp; //is a number from 0-1
     private int lastMinigamePlayed;
@@ -86,9 +80,11 @@ public class PlayerScript : MonoBehaviour
     private bool minigameTwoReverse;
     private float minigameTwoValue;
     private float minigameTwoTimer;
+    [SerializeField] private float minigameTwoTimerAmount;
     private bool minigameThreeActive;
     private bool minigameThreeUIWasActive;
     private float minigameThreeTimer;
+    [SerializeField] private float minigameThreeTimerAmount;
     private float minigameThreeValue;
     private int minigameFourProgress;
     private int minigameFourInput1;
@@ -96,17 +92,25 @@ public class PlayerScript : MonoBehaviour
     private int minigameFourInput3;
     private int minigameFourInput4;
     private float minigameFourTimer;
-    public bool activeSceneIs2D;
+    [SerializeField] private float minigameFourTimerAmount;
+    private bool minigameFourUIWasActive;
+    private bool minigameFourInput1ObjectWasActive;
+    private bool minigameFourInput2ObjectWasActive;
+    private bool minigameFourInput3ObjectWasActive;
+    private bool minigameFourInput4ObjectWasActive;
     private string lastHitKey;
     private bool interactActive;
     private bool interactDisabled;
-    public bool gamePaused;
     private bool gameWasPausedDuringMinigameTimer;
-    public float batteryPercentage;
     [SerializeField] private float batteryPercentageGain;
     [SerializeField] private float batteryDrain;
     private bool batteryDraining;
 
+    [HideInInspector] public int fishCaught;
+    [HideInInspector] public bool transitioning;
+    [HideInInspector] public bool activeSceneIs2D;
+    [HideInInspector] public bool gamePaused;
+    [HideInInspector] public float batteryPercentage;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip lightClick;
@@ -118,6 +122,8 @@ public class PlayerScript : MonoBehaviour
 
 
     [HideInInspector] public static PlayerScript Instance;
+
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -150,9 +156,25 @@ public class PlayerScript : MonoBehaviour
         {
             fishingBarGain = 0.15f;
         }
+        if (fishingBarPassiveGain == 0)
+        {
+            fishingBarPassiveGain = 0.000065f;
+        }
         if (batteryPercentageGain == 0)
         {
             batteryPercentageGain = 0.01f;
+        }
+        if (minigameTwoTimerAmount == 0)
+        {
+            minigameTwoTimerAmount = 20;
+        }
+        if (minigameThreeTimerAmount == 0)
+        {
+            minigameThreeTimerAmount = 20;
+        }
+        if (minigameFourTimerAmount == 0)
+        {
+            minigameFourTimerAmount = 10;
         }
         TurnAround = PlayerControls.currentActionMap.FindAction("TurnAround");
         Up = PlayerControls.currentActionMap.FindAction("Up");
@@ -381,10 +403,10 @@ public class PlayerScript : MonoBehaviour
         minigameTwoTimer = 0;
         minigameTwoValue = 0;
         minigameTwoWon = false;
-        while (minigameTwoTimer < 20 && !minigameTwoWon)
+        while (minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon)
         {
             yield return new WaitForSecondsRealtime(0.001f);
-            while (minigameTwoValue < 0.4f && minigameTwoTimer < 20 && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue < 0.4f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue += 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -398,7 +420,7 @@ public class PlayerScript : MonoBehaviour
                     interactDisabled = false;
                 }
             }
-            while (minigameTwoValue >= 0.4f && minigameTwoValue <= 0.6f && minigameTwoTimer < 20 && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue >= 0.4f && minigameTwoValue <= 0.6f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue += 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -410,7 +432,7 @@ public class PlayerScript : MonoBehaviour
                     break;
                 }
             }
-            while (minigameTwoValue > 0.6f && minigameTwoTimer < 20 && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue > 0.6f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && !minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue += 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -428,7 +450,7 @@ public class PlayerScript : MonoBehaviour
                     minigameTwoReverse = true;
                 }
             }
-            while (minigameTwoValue > 0.6f && minigameTwoTimer < 20 && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue > 0.6f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue -= 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -442,7 +464,7 @@ public class PlayerScript : MonoBehaviour
                     interactDisabled = false;
                 }
             }
-            while (minigameTwoValue >= 0.4f && minigameTwoValue <= 0.6f && minigameTwoTimer < 20 && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue >= 0.4f && minigameTwoValue <= 0.6f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue -= 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -454,7 +476,7 @@ public class PlayerScript : MonoBehaviour
                     break;
                 }
             }
-            while (minigameTwoValue < 0.4f && minigameTwoTimer < 20 && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
+            while (minigameTwoValue < 0.4f && minigameTwoTimer < minigameTwoTimerAmount && !minigameTwoWon && minigameTwoReverse && activeSceneIs2D)
             {
                 minigameTwoValue -= 0.03f;
                 minigameTwoSlider.GetComponent<Slider>().value = minigameTwoValue;
@@ -475,8 +497,8 @@ public class PlayerScript : MonoBehaviour
         }
         if (minigameTwoWon)
         {
-            fishingBarProgress += 0.15f;
-            batteryPercentage += 0.01f * Random.Range(1, 3);
+            fishingBarProgress += fishingBarGain;
+            batteryPercentage += batteryPercentageGain * Random.Range(1, 3);
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
@@ -493,7 +515,7 @@ public class PlayerScript : MonoBehaviour
         minigameThreeTimer = 0;
         minigameThreeActive = true;
         minigameThreeUI.SetActive(true);
-        while (minigameThreeValue < 1 && minigameThreeTimer < 20)
+        while (minigameThreeValue < 1 && minigameThreeTimer < minigameThreeTimerAmount)
         {
             yield return new WaitForSecondsRealtime(0.1f);
             minigameThreeTimer += 0.1f;
@@ -508,8 +530,8 @@ public class PlayerScript : MonoBehaviour
         minigameThreeActive = false;
         if (minigameThreeValue >= 1)
         {
-            fishingBarProgress += 0.15f;
-            batteryPercentage += 0.01f * Random.Range(1, 3);
+            fishingBarProgress += fishingBarGain;
+            batteryPercentage += batteryPercentageGain * Random.Range(1, 3);
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
@@ -596,17 +618,26 @@ public class PlayerScript : MonoBehaviour
         }
         while (minigameFourProgress < 4)
         {
-            yield return new WaitForSecondsRealtime(0.01f);
+            yield return new WaitForSecondsRealtime(0.001f);
             if (activeSceneIs2D)
             {
                 if (minigameFourProgress == 0)
                 {
                     minigameFourInput1Object.SetActive(true);
+                    minigameFourInput2Object.SetActive(true);
+                    minigameFourInput3Object.SetActive(true);
+                    minigameFourInput4Object.SetActive(true);
                     if (minigameFourInput1 == 1)
                     {
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "W")
                         {
@@ -624,6 +655,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "A")
                         {
@@ -641,6 +678,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "S")
                         {
@@ -658,6 +701,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "D")
                         {
@@ -679,6 +728,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "W")
                         {
@@ -696,6 +751,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "A")
                         {
@@ -713,6 +774,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "S")
                         {
@@ -730,6 +797,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "D")
                         {
@@ -751,6 +824,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "W")
                         {
@@ -768,6 +847,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "A")
                         {
@@ -785,6 +870,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "S")
                         {
@@ -802,6 +893,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "D")
                         {
@@ -823,6 +920,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "W")
                         {
@@ -840,6 +943,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "A")
                         {
@@ -857,6 +966,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "S")
                         {
@@ -874,6 +989,12 @@ public class PlayerScript : MonoBehaviour
                         while (lastHitKey == "none")
                         {
                             yield return new WaitForSecondsRealtime(0.001f);
+                            minigameFourTimer += 0.001f;
+                            if (minigameFourTimer > minigameFourTimerAmount)
+                            {
+                                minigameFourTimer = 0;
+                                break;
+                            }
                         }
                         if (lastHitKey == "D")
                         {
@@ -887,8 +1008,8 @@ public class PlayerScript : MonoBehaviour
                         }
                     }
                 }
-                minigameFourTimer += 0.01f;
-                if (minigameFourTimer > 10)
+                minigameFourTimer += 0.001f;
+                if (minigameFourTimer > minigameFourTimerAmount)
                 {
                     minigameFourTimer = 0;
                     break;
@@ -958,6 +1079,31 @@ public class PlayerScript : MonoBehaviour
             minigameThreeUI.SetActive(false);
             minigameThreeUIWasActive = true;
         }
+        if (!(!minigameFourUI.activeSelf))
+        {
+            minigameFourUI.SetActive(false);
+            minigameFourUIWasActive = true;
+        }
+        if (!(!minigameFourInput1Object.activeSelf))
+        {
+            minigameFourInput1Object.SetActive(false);
+            minigameFourInput1ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput2Object.activeSelf))
+        {
+            minigameFourInput2Object.SetActive(false);
+            minigameFourInput2ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput3Object.activeSelf))
+        {
+            minigameFourInput3Object.SetActive(false);
+            minigameFourInput3ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput4Object.activeSelf))
+        {
+            minigameFourInput4Object.SetActive(false);
+            minigameFourInput4ObjectWasActive = true;
+        }
         while (transitionOpacity > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
@@ -1019,6 +1165,31 @@ public class PlayerScript : MonoBehaviour
             minigameThreeUI.SetActive(false);
             minigameThreeUIWasActive = true;
         }
+        if (!(!minigameFourUI.activeSelf))
+        {
+            minigameFourUI.SetActive(false);
+            minigameFourUIWasActive = true;
+        }
+        if (!(!minigameFourInput1Object.activeSelf))
+        {
+            minigameFourInput1Object.SetActive(false);
+            minigameFourInput1ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput2Object.activeSelf))
+        {
+            minigameFourInput2Object.SetActive(false);
+            minigameFourInput2ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput3Object.activeSelf))
+        {
+            minigameFourInput3Object.SetActive(false);
+            minigameFourInput3ObjectWasActive = true;
+        }
+        if (!(!minigameFourInput4Object.activeSelf))
+        {
+            minigameFourInput4Object.SetActive(false);
+            minigameFourInput4ObjectWasActive = true;
+        }
         while (transitionOpacity > 0)
         {
             transition.GetComponent<UnityEngine.UI.Image>().color = new Vector4(0, 0, 0, transitionOpacity);
@@ -1077,6 +1248,31 @@ public class PlayerScript : MonoBehaviour
         {
             minigameThreeUI.SetActive(true);
             minigameThreeUIWasActive = false;
+        }
+        if (minigameFourUIWasActive)
+        {
+            minigameFourUI.SetActive(true);
+            minigameFourUIWasActive = false;
+        }
+        if (minigameFourInput1ObjectWasActive)
+        {
+            minigameFourInput1Object.SetActive(true);
+            minigameFourInput1ObjectWasActive = false;
+        }
+        if (minigameFourInput2ObjectWasActive)
+        {
+            minigameFourInput2Object.SetActive(true);
+            minigameFourInput2ObjectWasActive = false;
+        }
+        if (minigameFourInput3ObjectWasActive)
+        {
+            minigameFourInput3Object.SetActive(true);
+            minigameFourInput3ObjectWasActive = false;
+        }
+        if (minigameFourInput4ObjectWasActive)
+        {
+            minigameFourInput4Object.SetActive(true);
+            minigameFourInput4ObjectWasActive = false;
         }
         while (transitionOpacity > 0)
         {
@@ -1154,7 +1350,7 @@ public class PlayerScript : MonoBehaviour
         fishingBar.GetComponent<Slider>().value = fishingBarProgress;
         if (activeSceneIs2D)
         {
-            fishingBarProgress += 0.000065f;
+            fishingBarProgress += fishingBarPassiveGain;
 
             minigameThreeSlider.value = minigameThreeValue;
 
