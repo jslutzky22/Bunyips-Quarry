@@ -1162,7 +1162,7 @@ MonoBehaviour:
   activeSceneIs2D: 0
   gamePaused: 0
   batteryPercentageGain: 0
-  batteryDrain: 0
+  batteryDrain: 0.00375
   lightClick: {fileID: 8300000, guid: 89f045a1f810f9a4ba744f4326506e00, type: 3}
   offClick: {fileID: 8300000, guid: 76cbb624cb4e9e149a88d3ea897b0ed4, type: 3}
   minigameSuccess: {fileID: 8300000, guid: eb2f4f0e9f14bd04bb3131ce03fcdd9c, type: 3}
