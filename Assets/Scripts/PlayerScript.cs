@@ -102,7 +102,7 @@ public class PlayerScript : MonoBehaviour
     private bool interactDisabled;
     public bool gamePaused;
     private bool gameWasPausedDuringMinigameTimer;
-    private float batteryPercentage;
+    public float batteryPercentage;
     [SerializeField] private float batteryPercentageGain;
     [SerializeField] private float batteryDrain;
     private bool batteryDraining;
