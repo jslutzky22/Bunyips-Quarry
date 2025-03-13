@@ -1176,7 +1176,7 @@ MonoBehaviour:
   gamePaused: 0
   gameWasPausedDuringMinigameTimer: 0
   batteryPercentage: 0
-  batteryDrain: 0
+  batteryDrain: 0.00375
   batteryDraining: 0
   lightClick: {fileID: 8300000, guid: 89f045a1f810f9a4ba744f4326506e00, type: 3}
   offClick: {fileID: 8300000, guid: 76cbb624cb4e9e149a88d3ea897b0ed4, type: 3}
@@ -1429,8 +1429,8 @@ MonoBehaviour:
   - {fileID: 1130989853}
   - {fileID: 1756285460}
   currentMonsterIndex: 0
-  minTimeBetweenMoves: 3
-  maxTimeBetweenMoves: 9
+  minTimeBetweenMoves: 3.25
+  maxTimeBetweenMoves: 8.25
   fishingBackground: {fileID: 1582273869}
   flashlight: {fileID: 242952111}
   player: {fileID: 416954054}
