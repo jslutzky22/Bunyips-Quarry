@@ -1439,6 +1439,7 @@ MonoBehaviour:
   bunyipAttack: {fileID: 1213974658}
   redScreen: {fileID: 675170836}
   redScreenLerp: 0
+  beingAttacked: 0
 --- !u!4 &465992176
 Transform:
   m_ObjectHideFlags: 0
@@ -4225,7 +4226,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4f56fa0548ab04a4dab6f6b2be51e9eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02b046f8d591f6341b929defdb4bafd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
