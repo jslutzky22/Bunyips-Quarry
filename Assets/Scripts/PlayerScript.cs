@@ -121,6 +121,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private AudioClip transitionSound;
 
 
+    [Header("Animation")]
+    [SerializeField] private Animator fishingRodAnimator;
+
     [HideInInspector] public static PlayerScript Instance;
 
     AudioSource audioSource;
@@ -392,6 +395,9 @@ public class PlayerScript : MonoBehaviour
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
+
+            fishingRodAnimator.SetTrigger("ReelIn");
+
         }
         lastMinigamePlayed = 1;
         StartCoroutine(Minigames());
@@ -502,6 +508,9 @@ public class PlayerScript : MonoBehaviour
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
+
+            fishingRodAnimator.SetTrigger("ReelIn");
+
             minigameTwoWon = false;
         }
         minigameTwoUI.SetActive(false);
@@ -535,6 +544,9 @@ public class PlayerScript : MonoBehaviour
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
+
+            fishingRodAnimator.SetTrigger("ReelIn");
+
         }
         minigameThreeValue = 0;
         minigameThreeTimer = 0;
@@ -1024,6 +1036,9 @@ public class PlayerScript : MonoBehaviour
             batteryBar.fillAmount = batteryPercentage;
             audioSource.PlayOneShot(reelIn, 1F);
             audioSource.PlayOneShot(minigameSuccess, 1F);
+
+            fishingRodAnimator.SetTrigger("ReelIn");
+
         }
         lastMinigamePlayed = 4;
         StartCoroutine(Minigames());
