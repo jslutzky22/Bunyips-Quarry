@@ -3443,7 +3443,7 @@ MonoBehaviour:
 
 
     The Bunyip will sometimes make noise
-    at it moves...'
+    as it moves...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
