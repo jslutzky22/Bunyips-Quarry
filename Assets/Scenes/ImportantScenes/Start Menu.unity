@@ -271,10 +271,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Placeholder text
+  m_text: "Cinematic Jump Scare Stinger by TheSoundFXGuy_YT\r\nLong Space Swoosh
+    by miksmusic\r\n05966 water surfacing splashes.wav\r\nHorror Sound Demonic Ambience
+    6 (Vol 004) by AlesiaDavina \r\nUpbeat Corporate by LiteSaturation\r\nTwig Snap
+    05.wav by Glitchedtones \r\n Positive Blip Effect by CogFireStudios\r\nRustle.ogg
+    by egomassive\r\nAngel Fly Fish Reel Fast Wind_1.wav by paulprit"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -298,8 +302,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -314,7 +318,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -337,7 +341,7 @@ MonoBehaviour:
   m_margin: {x: 106.99386, y: 0, z: -549.68304, w: -394.54593}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &52048195
@@ -408,7 +412,7 @@ MonoBehaviour:
   m_text: Sound Credits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -542,7 +546,7 @@ MonoBehaviour:
   m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48be440c56941ec458eb1c6787104c14, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4802010704225364549, guid: 48be440c56941ec458eb1c6787104c14, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -904,7 +908,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1905,7 +1909,7 @@ MonoBehaviour:
   m_text: CREDITS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3308,7 +3312,7 @@ MonoBehaviour:
   m_text: Our Team
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9087421acab14114599852a559ceb491, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2392808913257826554, guid: 9087421acab14114599852a559ceb491, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
