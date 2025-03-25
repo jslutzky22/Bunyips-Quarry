@@ -29,6 +29,12 @@ public class FlashlightController : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] private AudioClip jumpscareStinger;
 
+    [SerializeField] private float defaultIntensity = 0.5f;
+    [SerializeField] private float defaultSpotAngle = 13f;
+    [SerializeField] private float bunyipIntensity = 2f;
+    [SerializeField] private float bunyipSpotAngle = 46f;
+
+
     private void Awake()
     {
         mainCamera = Camera.main; // Get the main camera
@@ -123,6 +129,10 @@ public class FlashlightController : MonoBehaviour
         Vector3 originalPosition = flashlight.transform.localPosition; // Store the original position
         float elapsedTime = 0f;
 
+        // Change flashlight intensity and spot angle when hitting the Bunyip
+        flashlight.intensity = bunyipIntensity;
+        flashlight.spotAngle = bunyipSpotAngle;
+
         // Perform the shake, but allow rotation to continue
         while (elapsedTime < shakeDuration)
         {
@@ -148,6 +158,10 @@ public class FlashlightController : MonoBehaviour
 
         // Trigger the Bunyip to be scared away
         bunyipController.ResetMonsterPosition(); // Call Bunyip reset from BunyipControl script
+
+        // Revert back to default intensity and spot angle
+        flashlight.intensity = defaultIntensity;
+        flashlight.spotAngle = defaultSpotAngle;
 
         isShaking = false; // Reset the shaking state
         StartCoroutine(Cooldown()); // Start the cooldown timer after flicker
